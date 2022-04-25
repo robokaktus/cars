@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('foundation_year')->nullable();
             $table->string('country_iso')->nullable();
             $table->string('logo')->nullable();
+            $table->unsignedInteger('priority')->index()->default(0);
             $table->timestamps();
         });
     }

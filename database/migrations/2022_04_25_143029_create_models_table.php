@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('slug');
             $table->date('started_at')->nullable();
             $table->date('ended_at')->nullable();
+            $table->unsignedInteger('priority')->index()->default(0);
             $table->timestamps();
             $table->unique(['brand_id', 'slug', 'started_at', 'ended_at']);
         });

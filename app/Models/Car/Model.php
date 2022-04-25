@@ -14,7 +14,8 @@ class Model extends \Illuminate\Database\Eloquent\Model
         'brand_id',
         'parent_id',
         'title',
-        'slug'
+        'slug',
+        'priority'
     ];
 
     protected $dates = [
