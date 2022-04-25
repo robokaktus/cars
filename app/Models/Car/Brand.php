@@ -16,7 +16,8 @@ class Brand extends Model
         'slug',
         'foundation_year',
         'country_iso',
-        'logo'
+        'logo',
+        'priority'
     ];
 
     public function models()
