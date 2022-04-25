@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Car\TechnicalCondition;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,7 +20,7 @@ class DatabaseSeeder extends Seeder
             PaintTypesSeeder::class,
             PaintConditionsSeeder::class,
             BodyTypesSeeder::class,
-            TechnicalCondition::class,
+            TechnicalConditionsSeeder::class,
             FeaturesSeeder::class
         ]);
     }
