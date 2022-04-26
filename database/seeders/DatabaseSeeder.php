@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Car\FuelType;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,7 +22,10 @@ class DatabaseSeeder extends Seeder
             PaintConditionsSeeder::class,
             BodyTypesSeeder::class,
             TechnicalConditionsSeeder::class,
-            FeaturesSeeder::class
+            FeaturesSeeder::class,
+            DriveTypesSeeder::class,
+            FuelTypesSeeder::class,
+            GearboxTypesSeeder::class
         ]);
     }
 }

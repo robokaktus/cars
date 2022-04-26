@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('feature_sale', function (Blueprint $table) {
+        Schema::create('fuel_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Car\Feature::class, 'feature_id');
-            $table->foreignIdFor(\App\Models\Sale\Sale::class, 'sale_id');
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->text('description')->nullable();
+            $table->string('icon')->nullable();
             $table->timestamps();
-            $table->unique(['feature_id', 'sale_id']);
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('feature_sale');
+        Schema::dropIfExists('fuel_types');
     }
 };

@@ -29,6 +29,9 @@ return new class extends Migration
             $table->string('state_number')->index();
             $table->string('vin_number')->index();
             $table->string('city_id');
+            $table->unsignedInteger('engine_capacity');
+            $table->unsignedInteger('horsepower');
+            $table->unsignedInteger('mileage');
             $table->unsignedInteger('phone_number')->index();
             $table->foreignIdFor(User::class, 'user_id')->index();
             $table->timestamps();

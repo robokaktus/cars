@@ -4,7 +4,9 @@ namespace App\Models\Sale;
 
 use App\Models\Car\BodyType;
 use App\Models\Car\Brand;
+use App\Models\Car\Crash;
 use App\Models\Car\Feature;
+use App\Models\Car\FuelType;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -61,5 +63,15 @@ class Sale extends Model
     public function features()
     {
         return $this->belongsToMany(Feature::class, 'feature_sale');
+    }
+
+    public function crash()
+    {
+        return $this->hasOne(Crash::class, 'sale_id', 'id');
+    }
+
+    public function fuelEconomy()
+    {
+        return $this->hasOne(FuelType::class, 'sale_id', 'id');
     }
 }
