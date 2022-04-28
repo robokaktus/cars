@@ -24,6 +24,23 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/home', function () {
+    return Inertia::render('Home', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+
+Route::get('/car/sell', function () {
+    return Inertia::render('Car/Sell');
+});
+
+Route::get('/car/catalog', function () {
+    return Inertia::render('Car/Catalog');
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
