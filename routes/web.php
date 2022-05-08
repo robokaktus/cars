@@ -24,8 +24,20 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/car/sell', function () {
-    return Inertia::render('Car/Sell');
+Route::get('/car/sell-1', function () {
+    return Inertia::render('Car/Sell/Sell-1');
+});
+Route::get('/car/sell-2', function () {
+    return Inertia::render('Car/Sell/Sell-2');
+});
+Route::get('/car/sell-3', function () {
+    return Inertia::render('Car/Sell/Sell-3');
+});
+Route::get('/car/sell-4', function () {
+    return Inertia::render('Car/Sell/Sell-4');
+});
+Route::get('/car/sell-5', function () {
+    return Inertia::render('Car/Sell/Sell-5');
 });
 
 Route::get('/car/catalog', function () {
