@@ -1,5 +1,5 @@
 <template>
-    <FlashMessage position="left top" time="10000" strategy="single" group="hints"/>
+    <FlashMessage position="left bottom" time="10000"/>
     <div class="container mx-auto min-h-full flex flex-col">
         <header class="w-full shadow-lg bg-white dark:bg-gray-700 items-center h-16 rounded-2xl z-40 mb-2">
             <div class="relative z-20 flex flex-col justify-center h-full px-3 mx-auto flex-center">
@@ -11,7 +11,7 @@
                                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                                      alt="logo"/>
                             </div>
-                            <h1 class="text-2xl">Robocar</h1><br>
+                            <h1 v-on:click="showFlash" class="text-2xl ффів">Robocar</h1><br>
                         </div>
                     </div>
                     <div class="relative p-1 flex items-center justify-end w-1/4 ml-5 mr-4 sm:mr-0 sm:right-auto">
@@ -334,6 +334,15 @@ export default {
         cities: Array,
         years: Array,
         bodyTypes: Array
-    }
+    },
+    methods: {
+        showFlash: function () {
+            this.$flashMessage.show({
+                type: 'error',
+                title: 'Error Message Title',
+                message: 'Oh, you broke my heart! Shame on you!'
+            });
+        }
+    },
 }
 </script>
