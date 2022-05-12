@@ -28,7 +28,7 @@ class Main extends Controller
             'models' => Model::get(['id', 'title']),
             'bodyTypes' => BodyType::get(['id', 'title', 'icon']),
             'years' => range(now()->year, 1960),
-            'cities' => $ukraine->cities
+//            'cities' => $ukraine->cities
         ]);
     }
 }
