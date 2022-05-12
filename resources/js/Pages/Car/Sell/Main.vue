@@ -65,72 +65,72 @@
             <div class="w-full shadow-lg bg-white rounded-2xl mb-2">
                 <div class="lg:flex flex-col lg:items-center lg:justify-between w-full mx-auto py-12 px-4 sm:px-6 lg:pb-16 lg:pt-6 lg:px-8 z-20">
                     <div class="w-full">
-                        <form action="" method="" class="w-full">
+                        <form @submit.prevent="submit" class="w-full">
                             <div class="w-full mt-4 flex">
                                 <div class="w-1/4 px-1">
-                                    <select name="brand" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                        <option>Brand</option>
+                                    <select required v-model="form.brand_id" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                                        <option v-for="brand in brands" :value="brand.id" >{{ brand.title }}</option>
                                     </select>
                                 </div>
                                 <div class="w-1/4 px-1">
-                                    <select name="model" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                        <option>Model</option>
+                                    <select required v-model="form.model_id" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                                        <option v-for="model in models" :value="model.id" >{{ model.title }}</option>
                                     </select>
                                 </div>
                                 <div class="w-2/4 px-1">
-                                    <input type="text" name="version" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Версія"/>
+                                    <input v-model="form.version" type="text" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Версія"/>
                                 </div>
                             </div>
                             <div class="w-full mt-4 flex">
                                 <div class="w-2/4 px-1">
-                                    <input type="text" name="price" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Ціна"/>
+                                    <input required v-model="form.price" type="number" step="1" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Ціна"/>
                                 </div>
                                 <div class="w-2/4 px-1">
-                                    <input type="text" name="old_price" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Стара ціна"/>
+                                    <input v-model="form.old_price" type="number" step="1" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Стара ціна"/>
                                 </div>
                             </div>
                             <div class="w-full mt-4 flex">
                                 <div class="w-1/4 px-1">
-                                    <select name="body_type" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                        <option>Тип кузова</option>
+                                    <select required v-model="form.body_type_id" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                                        <option v-for="bodyType in bodyTypes" :value="bodyType.id" >{{ bodyType.title }}</option>
                                     </select>
                                 </div>
                                 <div class="flex w-1/4 px-1">
                                     <span class="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
                                         <font-awesome-icon icon="volume-low" />
                                     </span>
-                                    <input type="text" name="volume" class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Обʼєм"/>
+                                    <input required v-model="form.engine_capacity" type="number" step="0.1" class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Обʼєм"/>
                                 </div>
                                 <div class="flex w-1/4 px-1">
                                     <span class="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
                                        <font-awesome-icon icon="chess-knight" />
                                     </span>
-                                    <input type="text" name="horse" class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Коні"/>
+                                    <input required v-model="form.horsepower" type="number" step="1" class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Коні"/>
                                 </div>
                                 <div class="flex w-1/4 px-1">
                                     <span class="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
                                        <font-awesome-icon icon="road" />
                                     </span>
-                                    <input type="text" name="mileage" class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Пробіг коней"/>
+                                    <input required v-model="form.mileage" type="number" step="1" class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Пробіг коней"/>
                                 </div>
                             </div>
                             <div class="w-full mt-4 flex">
                                 <div class="flex w-1/3 px-1">
-                                    <input type="text" name="auto_number" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Номер авто"/>
+                                    <input required v-model="form.state_number" type="text" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Номер авто"/>
                                 </div>
                                 <div class="flex w-1/3 px-1">
-                                    <input type="text" name="vin_number" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="vin-номер"/>
+                                    <input required v-model="form.vin_number" type="text" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="vin-номер"/>
                                 </div>
                                 <div class="w-1/3 px-1">
-                                    <select name="year" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                        <option>Рік випуску</option>
+                                    <select required v-model="form.manufactured_at" name="year" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                                        <option v-for="year in years" :value="year" >{{ year }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="w-full mt-4 flex items-center">
                                 <div class="w-1/3 px-1">
-                                    <select name="city" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                        <option>Місто</option>
+                                    <select required v-model="form.city_id" name="city" class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                                        <option v-for="city in cities" :value="city.id" >{{ city.name }}</option>
                                     </select>
                                 </div>
                                 <div class="w-1/3 px-1">
@@ -146,7 +146,7 @@
                                     <span class="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
                                         <font-awesome-icon icon="mobile-screen-button" />
                                     </span>
-                                    <input type="text" name="mobile" class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Телефон"/>
+                                    <input required v-model="form.phone_number" type="text" class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Телефон"/>
                                 </div>
                             </div>
                             <div class="w-full mt-4 flex items-center">
@@ -167,9 +167,9 @@
                             </div>
                             <div class="w-full mt-8 flex justify-end">
                                 <div class="flex w-1/5 px-1">
-                                    <a href="/car/sell-2" class="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-full ">
+                                    <button type="submit" class="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-full ">
                                         Далі
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -220,12 +220,41 @@
         top: 50%;
     }
 </style>
-<script>
-    export default {
-        setup() {
-            return {
-            }
-        },
+<script setup>
+    import { reactive } from "vue";
+    import {Inertia} from "@inertiajs/inertia";
+    import Button from "../../../Jetstream/Button";
 
+    let form = reactive({
+        'brand_id': null,
+        'model_id': null,
+        'version': null,
+        'price': null,
+        'old_price': null,
+        'body_type_id': null,
+        'engine_capacity': null,
+        'horsepower': null,
+        'mileage': null,
+        'city_id': null,
+        'state_number': null,
+        'vin_number': null,
+        'manufactured_at': null,
+        'phone_number': null
+    });
+
+    let submit = () => {
+        Inertia.post('/car/sell/', form)
+    };
+</script>
+<script>
+export default {
+    props: {
+        brands: Array,
+        models: Array,
+        cities: Array,
+        years: Array,
+        bodyTypes: Array
     }
+
+}
 </script>

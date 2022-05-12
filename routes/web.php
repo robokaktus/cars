@@ -24,9 +24,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/car/sell-1', function () {
-    return Inertia::render('Car/Sell/Sell-1');
-});
+Route::get('/car/sell', [\App\Http\Controllers\Sale\Main::class, 'index']);
+Route::post('/car/sell', [\App\Http\Controllers\Sale\Main::class, 'store']);
+
 Route::get('/car/sell-2', function () {
     return Inertia::render('Car/Sell/Sell-2');
 });

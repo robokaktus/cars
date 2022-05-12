@@ -28,11 +28,11 @@ class Sale extends Model
         'vin_number',
         'city_id',
         'phone_number',
+        'manufactured_at',
+        'engine_capacity',
+        'horsepower',
+        'mileage',
         'user_id'
-    ];
-
-    protected $dates = [
-        'manufactured_at'
     ];
 
     public function brand()
