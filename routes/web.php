@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Sale\Main;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,8 +25,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/car/sell', [\App\Http\Controllers\Sale\Main::class, 'index']);
-Route::post('/car/sell', [\App\Http\Controllers\Sale\Main::class, 'store']);
+Route::get('/car/sell', [Main::class, 'index']);
+Route::post('/car/sell', [Main::class, 'store']);
 
 Route::get('/car/sell-2', function () {
     return Inertia::render('Car/Sell/Sell-2');

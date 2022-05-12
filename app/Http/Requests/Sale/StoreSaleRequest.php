@@ -66,9 +66,17 @@ class StoreSaleRequest extends FormRequest
                 'required',
                 'numeric'
             ],
+            'is_hide_state_number' => [
+                'required',
+                'boolean'
+            ],
             'vin_number' => [
                 'required',
                 'numeric'
+            ],
+            'is_hide_vin_number' => [
+                'required',
+                'boolean'
             ],
             'manufactured_at' => [
                 'required',
@@ -81,7 +89,33 @@ class StoreSaleRequest extends FormRequest
             'phone_number' => [
                 'required',
                 'numeric'
-            ]
+            ],
+            'telegram' => [
+                'required',
+                'numeric'
+            ],
+            'email' => [
+                'required',
+                'numeric'
+            ],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'brand_id.required' => 'Будь ласка, вкажіть марку',
+            'model_id.required' => 'Будь ласка, вкажіть модель',
+            'price.required' => 'Будь ласка, вкажіть ціну',
+            'body_type_id.required' => 'Будь ласка, вкажіть тип кузову',
+            'engine_capacity.required' => 'Будь ласка, вкажіть об\'єм двигуна',
+            'horsepower.required' => 'Будь ласка, вкажіть потужність',
+            'mileage.required' => 'Будь ласка, вкажіть пробіг',
+            'state_number.required' => 'Будь ласка, вкажіть державний номер',
+            'vin_number.required' => 'Будь ласка, вкажіть VIN-номер',
+            'manufactured_at.required' => 'Будь ласка, вкажіть рік випуску',
+            'city_id.required' => 'Будь ласка, вкажіть місто',
+            'phone_number.required' => 'Будь ласка, вкажіть номер телефону'
         ];
     }
 }

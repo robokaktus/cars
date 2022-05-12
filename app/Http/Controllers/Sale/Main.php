@@ -27,7 +27,7 @@ class Main extends Controller
             'brands' => Brand::orderBy('priority')->get(['id', 'title']),
             'models' => Model::get(['id', 'title']),
             'bodyTypes' => BodyType::get(['id', 'title', 'icon']),
-            'years' => ['2011', '2010', '2020'],
+            'years' => range(now()->year, 1960),
             'cities' => $ukraine->cities
         ]);
     }
