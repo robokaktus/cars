@@ -1,6 +1,5 @@
 <template>
     <Layout>
-        <FlashMessage position="left bottom" time="10000"/>
         <h2 class="flex justify-center my-5 text-3xl font-extrabold text-black dark:text-white sm:text-4xl">
             Форма Продажу
         </h2>
@@ -231,40 +230,11 @@
 }
 </style>
 
-<script setup>
-import {reactive} from "vue";
-import {Inertia} from "@inertiajs/inertia";
-import Button from "../../../Jetstream/Button";
-
-
-let form = reactive({
-    'brand_id': null,
-    'model_id': null,
-    'version': null,
-    'price': null,
-    'old_price': null,
-    'body_type_id': null,
-    'engine_capacity': null,
-    'horsepower': null,
-    'mileage': null,
-    'city_id': null,
-    'state_number': null,
-    'is_hide_state_number': false,
-    'vin_number': null,
-    'is_hide_vin_number': false,
-    'manufactured_at': null,
-    'phone_number': null,
-    'telegram': null,
-    'email': null
-});
-
-let submit = () => {
-    Inertia.post('/car/sell/', form)
-};
-</script>
 <script>
 
 import Layout from "../../../Layouts/Layout"
+import {reactive} from "vue";
+import {Inertia} from "@inertiajs/inertia";
 
 export default {
     props: {
@@ -272,8 +242,47 @@ export default {
         models: Array,
         cities: Array,
         years: Array,
-        bodyTypes: Array
+        bodyTypes: Array,
     },
-    components: { Layout }
+    data() {
+        return {
+            form: reactive({
+                'brand_id': null,
+                'model_id': null,
+                'version': null,
+                'price': null,
+                'old_price': null,
+                'body_type_id': null,
+                'engine_capacity': null,
+                'horsepower': null,
+                'mileage': null,
+                'city_id': null,
+                'state_number': null,
+                'is_hide_state_number': false,
+                'vin_number': null,
+                'is_hide_vin_number': false,
+                'manufactured_at': null,
+                'phone_number': null,
+                'telegram': null,
+                'email': null
+            })
+        }
+    },
+    components: { Layout },
+    methods: {
+        submit: function () {
+            Inertia.post('/car/sell/', this.form)
+        }
+    },
+    updated() {
+        Object.values(this.$attrs["errors"]).forEach((item) => {
+            this.$flashMessage.show({
+                type: 'error',
+                title: item,
+                message: item
+            });
+        });
+    }
+
 }
 </script>
