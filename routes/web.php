@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Sale\Main;
+use App\Http\Controllers\Sale\MainController;
+use App\Http\Controllers\Sale\PreferencesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,21 +26,21 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/car/sell', [Main::class, 'index']);
-Route::post('/car/sell', [Main::class, 'store']);
+Route::get('/car/sale', [MainController::class, 'index']);
+Route::post('/car/sale', [MainController::class, 'store']);
 
-Route::get('/car/sell-2', function () {
-    return Inertia::render('Car/Sell/Sell-2');
-});
-Route::get('/car/sell-3', function () {
-    return Inertia::render('Car/Sell/Sell-3');
-});
-Route::get('/car/sell-4', function () {
-    return Inertia::render('Car/Sell/Sell-4');
-});
-Route::get('/car/sell-5', function () {
-    return Inertia::render('Car/Sell/Sell-5');
-});
+Route::get('/car/sale/{sale}/preferences', [PreferencesController::class, 'index'])->name('car.sale-sale.preferences');
+Route::post('/car/sale/{sale}/preferences', [PreferencesController::class, 'store']);
+
+Route::get('/car/sale/{sale}/gallery', [PreferencesController::class, 'index'])->name('car.sale-sale.gallery');
+Route::post('/car/sale/{sale}/gallery', [PreferencesController::class, 'store']);
+
+Route::get('/car/sale/{sale}/crash', [PreferencesController::class, 'index'])->name('car.sale-sale.crash');
+Route::post('/car/sale/{sale}/crash', [PreferencesController::class, 'store']);
+
+Route::get('/car/sale/{sale}/features', [PreferencesController::class, 'index'])->name('car.sale-sale.features');
+Route::post('/car/sale/{sale}/features', [PreferencesController::class, 'store']);
+
 
 Route::get('/car/catalog', function () {
     return Inertia::render('Car/Catalog');

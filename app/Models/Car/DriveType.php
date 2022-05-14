@@ -9,7 +9,7 @@ class DriveType extends Model
 {
     use HasFactory;
 
-    protected $table = 'delivery_types';
+    protected $table = 'drive_types';
 
     protected $fillable = [
         'title',

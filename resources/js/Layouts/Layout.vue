@@ -1,6 +1,6 @@
 <template>
     <div class="container mx-auto min-h-full flex flex-col">
-        <FlashMessage position="right top" time="3000"/>
+<!--        <FlashMessage position="right top" time="3000"/>-->
         <Header />
 
         <main class="shrink grow basis-auto">

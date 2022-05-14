@@ -271,7 +271,7 @@ export default {
     components: { Layout },
     methods: {
         submit: function () {
-            Inertia.post('/car/sell/', this.form)
+            Inertia.post('/car/sale/', this.form)
         }
     },
     updated() {

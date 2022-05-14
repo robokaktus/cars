@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Sale;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class StoreSaleRequest extends FormRequest
@@ -91,11 +90,11 @@ class StoreSaleRequest extends FormRequest
                 'numeric'
             ],
             'telegram' => [
-                'required',
+                'nullable',
                 'numeric'
             ],
             'email' => [
-                'required',
+                'nullable',
                 'numeric'
             ],
         ];
