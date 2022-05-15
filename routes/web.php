@@ -41,6 +41,9 @@ Route::post('/car/sale/{sale}/crash', [PreferencesController::class, 'store']);
 Route::get('/car/sale/{sale}/features', [PreferencesController::class, 'index'])->name('car.sale-sale.features');
 Route::post('/car/sale/{sale}/features', [PreferencesController::class, 'store']);
 
+Route::get('/car/features', function () {
+    return Inertia::render('Car/Sale/Features');
+});
 
 Route::get('/car/catalog', function () {
     return Inertia::render('Car/Catalog');

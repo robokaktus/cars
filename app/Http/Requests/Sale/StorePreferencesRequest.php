@@ -41,7 +41,7 @@ class StorePreferencesRequest extends FormRequest
                 'required',
                 Rule::exists('paint_conditions', 'id')
             ],
-            'technical_condition' => [
+            'technical_condition_id' => [
                 'required',
                 Rule::exists('technical_conditions', 'id')
             ],
