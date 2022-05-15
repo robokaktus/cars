@@ -27,7 +27,7 @@ class PreferencesController extends Controller
     {
        $sale->preference()->create($storePreferencesRequest->validated());
 
-       return CrashController::renderInertia($sale->id);
+       return GalleryController::renderInertia($sale->id);
     }
 
     public static function renderInertia(int $saleId): Response
