@@ -99,7 +99,7 @@ input:checked ~ label {
 <script>
 
 import Layout from "../../../Layouts/Layout"
-import {reactive} from "vue/dist/vue";
+import {reactive} from "vue";
 import Button from "../../../Jetstream/Button";
 import Input from "../../../Jetstream/Input";
 import {Inertia} from "@inertiajs/inertia";
