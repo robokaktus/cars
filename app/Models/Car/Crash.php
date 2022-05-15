@@ -19,6 +19,7 @@ class Crash extends Model
         'is_top_crash',
         'is_left_crash',
         'is_right_crash',
+        'description',
     ];
 
     public function sale()

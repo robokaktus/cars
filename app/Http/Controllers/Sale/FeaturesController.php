@@ -23,22 +23,14 @@ class FeaturesController extends Controller
        return self::renderInertia($sale->id);
     }
 
-    public function store(Sale $sale, StorePreferencesRequest $storePreferencesRequest): Response
+    public function store(Sale $sale): Response
     {
-       $sale->preference()->create($storePreferencesRequest->validated());
+       dd(222);
     }
 
     public static function renderInertia(int $saleId): Response
     {
-        return Inertia::render('Car/Sale/Preferences', [
-            'paints' => Paint::get(['id', 'title', 'color_code']),
-            'paintTypes' => Type::get(['id', 'title', 'short_title', 'description', 'icon']),
-            'paintConditions' => Condition::get(['id', 'title', 'short_title', 'description', 'icon']),
-            'technicalConditions' => TechnicalCondition::get(['id', 'title', 'short_title', 'description', 'icon']),
-            'fuelTypes' => FuelType::get(['id', 'title', 'description', 'icon']),
-            'gearboxTypes' => GearboxType::get(['id', 'title', 'description', 'icon']),
-            'driveTypes' => DriveType::get(['id', 'title', 'description', 'icon']),
-            'countries' => Country::get('iso2', 'name'),
+        return Inertia::render('Car/Sale/Features', [
             'saleId' => $saleId
         ]);
     }
