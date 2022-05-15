@@ -39,7 +39,7 @@
             <div
                 class="lg:flex flex-col lg:items-center lg:justify-between w-full mx-auto py-12 px-4 sm:px-6 lg:pb-16 lg:pt-6 lg:px-8 z-20">
                 <div class="w-full">
-                    <form action="" method="" class="w-full">
+                    <form @submit.prevent="submit" class="w-full">
                         <div class="w-full mt-4 flex">
                             <div class="w-full">
                                 <label
@@ -55,16 +55,19 @@
                                                 <span class="text-blue-600 underline">browse</span>
                                             </span>
                                         </span>
-                                    <input type="file" name="file_upload" class="hidden">
+                                    <input @input="form.medias = $event.target.files" type="file" class="hidden" multiple>
+                                    <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                                        {{ form.progress.percentage }}%
+                                    </progress>
                                 </label>
                             </div>
                         </div>
                         <div class="w-full mt-8 flex justify-end">
                             <div class="flex w-1/5 px-1">
-                                <a href="/car/sell-4"
+                                <button type="submit"
                                    class="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-full ">
                                     Далі
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -93,12 +96,35 @@ input:checked ~ label {
 <script>
 
 import Layout from "../../../Layouts/Layout"
+import Button from "../../../Jetstream/Button";
+import {Inertia} from "@inertiajs/inertia";
+import { useForm } from '@inertiajs/inertia-vue3'
 
 export default {
-    setup() {
-        return {}
+    props: {
+        saleId: Number
     },
-    components: { Layout }
+    setup () {
+        const form = useForm({
+            medias: null
+        })
+
+        function submit() {
+            Inertia.post('/car/sale/' + 1 + '/gallery', form)
+        }
+
+        return { form, submit }
+    },
+    components: {Button, Layout },
+    updated() {
+        Object.values(this.$attrs["errors"]).forEach((item) => {
+            this.$flashMessage.show({
+                type: 'error',
+                title: item,
+                message: item
+            });
+        });
+    }
 
 }
 </script>

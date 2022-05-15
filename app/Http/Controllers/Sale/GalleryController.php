@@ -3,29 +3,25 @@
 namespace App\Http\Controllers\Sale;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Sale\StorePreferencesRequest;
-use App\Models\Car\DriveType;
-use App\Models\Car\FuelType;
-use App\Models\Car\GearboxType;
-use App\Models\Car\TechnicalCondition;
-use App\Models\Paint\Condition;
-use App\Models\Paint\Paint;
-use App\Models\Paint\Type;
+use App\Http\Requests\Sale\StoreGalleryRequest;
 use App\Models\Sale\Sale;
 use Inertia\Inertia;
 use Inertia\Response;
-use Nnjeim\World\Models\Country;
 
 class GalleryController extends Controller
 {
     public function index(Sale $sale): Response
     {
-       return self::renderInertia($sale->id);
+        return self::renderInertia($sale->id);
     }
 
-    public function store(Sale $sale): Response
+    public function store(Sale $sale, StoreGalleryRequest $storeGalleryRequest): Response
     {
-       return CrashController::renderInertia($sale->id);
+        $sale->addMultipleMediaFromRequest(['medias'])->each(function ($fileAdder) {
+            $fileAdder->toMediaCollection('car');
+        });
+
+        return CrashController::renderInertia($sale->id);
     }
 
     public static function renderInertia(int $saleId): Response
