@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Sale\CrashController;
 use App\Http\Controllers\Sale\GalleryController;
 use App\Http\Controllers\Sale\MainController;
 use App\Http\Controllers\Sale\PreferencesController;
@@ -36,8 +37,8 @@ Route::post('/car/sale/{sale}/preferences', [PreferencesController::class, 'stor
 Route::get('/car/sale/{sale}/gallery', [GalleryController::class, 'index'])->name('car.sale-sale.gallery');
 Route::post('/car/sale/{sale}/gallery', [GalleryController::class, 'store']);
 
-Route::get('/car/sale/{sale}/crash', [PreferencesController::class, 'index'])->name('car.sale-sale.crash');
-Route::post('/car/sale/{sale}/crash', [PreferencesController::class, 'store']);
+Route::get('/car/sale/{sale}/crash', [CrashController::class, 'index'])->name('car.sale-sale.crash');
+Route::post('/car/sale/{sale}/crash', [CrashController::class, 'store']);
 
 Route::get('/car/sale/{sale}/features', [PreferencesController::class, 'index'])->name('car.sale-sale.features');
 Route::post('/car/sale/{sale}/features', [PreferencesController::class, 'store']);

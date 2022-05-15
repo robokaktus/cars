@@ -36,46 +36,46 @@
             </div>
         </div>
         <div class="w-full shadow-lg bg-white rounded-2xl mb-2">
-<!--            <div-->
-<!--                class="lg:flex flex-col lg:items-center lg:justify-between w-full mx-auto py-12 px-4 sm:px-6 lg:pb-16 lg:pt-6 lg:px-8 z-20">-->
-<!--                <div class="w-full">-->
-<!--                    <form action="" method="" class="w-full">-->
-<!--                        <div class="w-full mt-4 flex">-->
-<!--                            <div class="w-2/4 px-1 flex">-->
-<!--                                <span class="rounded-l-md inline-flex items-center px-3 border-t bg-white border-l border-b border-gray-300 text-gray-500 shadow-sm text-sm">-->
-<!--                                   <font-awesome-icon icon="car-burst"/>-->
-<!--                                </span>-->
-<!--                                    <span class="w-6/12 inline-flex items-center px-3 border-t bg-white border-l border-b border-gray-300 text-gray-700 shadow-sm text-base justify-center">-->
-<!--                                    ДТП-->
-<!--                                </span>-->
-<!--                                <input type="checkbox" id="dtp" hidden name="dtp" class="hidden">-->
-<!--                                <label for="dtp" class="w-6/12 w-full border-t border-b border-r border-l text-base font-medium rounded-r-md border-gray-300 hover:bg-gray-100 cursor-pointer text-gray-700 px-4 py-2 text-center">-->
-<!--                                    <span>Так</span>-->
-<!--                                </label>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="w-full mt-4 flex">-->
-<!--                            <label class="text-gray-700 w-full" for="description">-->
-<!--                                <textarea-->
-<!--                                    class="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"-->
-<!--                                    id="description"-->
-<!--                                    placeholder="Опис..."-->
-<!--                                    name="dtp_description"-->
-<!--                                    rows="5"-->
-<!--                                    cols="40"></textarea>-->
-<!--                            </label>-->
-<!--                        </div>-->
-<!--                        <div class="w-full mt-8 flex justify-end">-->
-<!--                            <div class="flex w-1/5 px-1">-->
-<!--                                <a href="/car/sell-5"-->
-<!--                                   class="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-full ">-->
-<!--                                    Далі-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div
+                class="lg:flex flex-col lg:items-center lg:justify-between w-full mx-auto py-12 px-4 sm:px-6 lg:pb-16 lg:pt-6 lg:px-8 z-20">
+                <div class="w-full">
+                    <form class="w-full">
+                        <div class="w-full mt-4 flex">
+                            <div class="w-2/4 px-1 flex">
+                                <span class="rounded-l-md inline-flex items-center px-3 border-t bg-white border-l border-b border-gray-300 text-gray-500 shadow-sm text-sm">
+                                   <font-awesome-icon icon="car-burst"/>
+                                </span>
+                                    <span class="w-6/12 inline-flex items-center px-3 border-t bg-white border-l border-b border-gray-300 text-gray-700 shadow-sm text-base justify-center">
+                                    ДТП
+                                </span>
+                                <input v-model="form.is_crash_exist" type="checkbox" id="dtp" hidden class="hidden">
+                                <label for="dtp" class="w-6/12 w-full border-t border-b border-r border-l text-base font-medium rounded-r-md border-gray-300 hover:bg-gray-100 cursor-pointer text-gray-700 px-4 py-2 text-center">
+                                    <span>Так</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="w-full mt-4 flex">
+                            <label class="text-gray-700 w-full" for="description">
+                                <textarea
+                                    class="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                    id="description"
+                                    placeholder="Опис..."
+                                    rows="5"
+                                    cols="40"></textarea>
+                            </label>
+                        </div>
+                        <div class="w-full mt-8 flex justify-end">
+                            <div class="flex w-1/5 px-1">
+                                <button type="submit"
+                                   class="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-full ">
+                                    Далі
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </Layout>
 </template>
@@ -99,12 +99,42 @@ input:checked ~ label {
 <script>
 
 import Layout from "../../../Layouts/Layout"
+import {reactive} from "vue/dist/vue";
+import Button from "../../../Jetstream/Button";
+import Input from "../../../Jetstream/Input";
+import {Inertia} from "@inertiajs/inertia";
 
 export default {
-    setup() {
-        return {}
+    props: {
+        saleId: Number
     },
-    components: { Layout }
-
+    data() {
+        return {
+            form: reactive({
+                'is_crash_exist': false,
+                'is_front_crash': false,
+                'is_rear_crash': false,
+                'is_top_crash': false,
+                'is_left_crash': false,
+                'is_right_crash': false,
+                'description': null
+            })
+        }
+    },
+    components: {Button, Input, Layout},
+    methods: {
+        submit: function () {
+            Inertia.post('/car/sale/' + this.saleId + '/crash', this.form)
+        }
+    },
+    updated() {
+        Object.values(this.$attrs["errors"]).forEach((item) => {
+            this.$flashMessage.show({
+                type: 'error',
+                title: item,
+                message: item
+            });
+        });
+    }
 }
 </script>
