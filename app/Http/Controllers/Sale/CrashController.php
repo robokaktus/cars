@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sale;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sale\StoreCrashRequest;
 use App\Http\Requests\Sale\StorePreferencesRequest;
 use App\Models\Car\DriveType;
 use App\Models\Car\FuelType;
@@ -23,9 +24,13 @@ class CrashController extends Controller
        return self::renderInertia($sale->id);
     }
 
-    public function store(Sale $sale): Response
+    public function store(Sale $sale, StoreCrashRequest $storeCrashRequest): Response
     {
-       dd(2);
+        if ($storeCrashRequest->boolean('is_crash_exist')) {
+            $sale->crash()->create($storeCrashRequest->validated());
+        }
+
+        return FeaturesController::renderInertia($sale->id);
     }
 
     public static function renderInertia(int $saleId): Response

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('crashes', function (Blueprint $table) {
-            //
+            $table->text('description')->after('is_right_crash')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('crashes', function (Blueprint $table) {
-            //
+            $table->dropColumn('description');
         });
     }
 };
