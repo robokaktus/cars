@@ -133,18 +133,37 @@
                 </header>
                 <div class="overflow-auto h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
                     <div class="flex flex-col flex-wrap sm:flex-row ">
-                        <a v-for="product in products" :key="product.id" :href="product.href"
-                           class="w-full sm:w-1/2 xl:w-1/3 mb-4" style="padding: 0 10px">
-                            <div class="flex w-full flex-col justify-center bg-white rounded-2xl shadow-sm">
-                                <img class="aspect-video w-full rounded-t-2xl object-cover object-center"
-                                     :src="product.imageSrc" :alt="product.imageAlt"/>
-                                <div class="p-4">
-                                    <h1 class="text-2xl font-medium text-slate-600 pb-2">{{ product.name }}</h1>
-                                    <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
-                                        {{ product.price }}</p>
+                        <swiper v-for="product in products"
+                                :effect="'flip'"
+                                :grabCursor="true"
+                                :pagination="false"
+                                :navigation="false"
+                                :modules="modules"
+                                class="w-full sm:w-1/2 xl:w-1/3 mb-4" style="padding: 0 10px"
+                        >
+                            <swiper-slide>
+                                <div class="flex w-full flex-col justify-center bg-white rounded-2xl shadow-sm">
+                                    <img class="aspect-video w-full rounded-t-2xl object-cover object-center"
+                                         :src="product.imageSrc" :alt="product.imageAlt"/>
+                                    <div class="p-4">
+                                        <h1 class="text-2xl font-medium text-slate-600 pb-2">{{ product.name }}</h1>
+                                        <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
+                                            {{ product.price }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </swiper-slide>
+                            <swiper-slide>
+                                <a class="w-full sm:w-1/2 xl:w-1/3 mb-4" style="padding: 0 10px">
+                                    <div class="flex w-full flex-col justify-center bg-white rounded-2xl shadow-sm">
+                                        <div class="p-4">
+                                            <h1 class="text-2xl font-medium text-slate-600 pb-2">Second slide</h1>
+                                            <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
+                                                second price</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </swiper-slide>
+                        </swiper>
                     </div>
                 </div>
             </div>
@@ -152,11 +171,8 @@
     </main>
 
 </template>
+
 <script>
-
-import {Popover, PopoverButton, PopoverPanel} from "@headlessui/vue";
-import {MenuIcon, XIcon} from "@heroicons/vue/outline";
-
 const products = [
     {
         id: 1,
@@ -191,15 +207,24 @@ const products = [
         imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
     }
 ]
-import { ref } from 'vue'
-import { Listbox, ListboxButton, ListboxLabel, ListboxOption, ListboxOptions } from '@headlessui/vue'
-import { CheckIcon, SelectorIcon } from '@heroicons/vue/solid'
+import {Swiper, SwiperSlide} from "swiper/vue";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-flip";
+
+// import required modules
+import {EffectFlip, Pagination, Navigation} from "swiper";
 
 export default {
+    components: {
+        Swiper,
+        SwiperSlide,
+    },
     setup() {
         return {
-            products
-        }
-    }
-}
+            modules: [EffectFlip, Pagination, Navigation], products
+        };
+    },
+};
 </script>

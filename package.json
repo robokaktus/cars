@@ -33,6 +33,7 @@
         "@headlessui/vue": "^1.6.0",
         "@heroicons/vue": "^1.0.6",
         "@smartweb/vue-flash-message": "^1.0.0-alpha.12",
-        "@tailwindcss/aspect-ratio": "^0.4.0"
+        "@tailwindcss/aspect-ratio": "^0.4.0",
+        "swiper": "^8.1.4"
     }
 }
