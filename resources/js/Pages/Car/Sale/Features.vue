@@ -60,12 +60,16 @@
                                     <font-awesome-icon icon="plus" class="pointer-events-none transition-all rotate-0"/>
                                 </button>
                                 <div class="absolute mt-1 w-60 z-10 rounded-md bg-white shadow-lg hidden scale dropdown">
-                                    <ul tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-item-3" class="max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                                    <input type="text"
+                                           @input="dropdownInput($event)"
+                                           class="border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base"
+                                           placeholder="Search...">
+                                    <ul tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-item-3" class="max-h-56 py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
                                         <li v-for="feature in features" :key="feature.id" :data-feature-id="feature.id" @click="addFeature($event)" role="option" class="text-gray-900 cursor-pointer hover:bg-indigo-500 hover:text-white select-none relative py-2 pl-3 pr-9">
                                             <div class="flex items-center">
                                                 <span class="block font-normal truncate flex items-center">
-                                                     <font-awesome-icon :icon="feature.icon" class="mr-3"/>
-                                                    {{ feature.title }}
+                                                    <font-awesome-icon :icon="feature.icon" class="mr-3"/>
+                                                    <span class="feature-title">{{ feature.title }}</span>
                                                 </span>
                                             </div>
                                         </li>
@@ -173,6 +177,7 @@ export default {
 
             this.features.splice(this.features.indexOf(selectedFeature), 1)
             this.activeFeatures.push(selectedFeature)
+            this.clearDropdownInput()
         },
         deleteFeature: function(event) {
             let selectedId = event.target.closest('.active-feature').getAttribute('data-feature-id')
@@ -185,9 +190,22 @@ export default {
           document.addEventListener('click', (event) => {
               if (!event.target.closest('.dropdown') && !event.target.closest('.dropdown-button')) {
                   document.querySelector('.dropdown').classList.add('hidden');
+                  this.clearDropdownInput()
               }
           });
         },
+        dropdownInput: function (event) {
+            document.querySelectorAll('.feature-title').forEach((item) => {
+                item.innerHTML.includes(event.target.value) ? item.closest('li').classList.remove('hidden')
+                    : item.closest('li').classList.add('hidden')
+            });
+        },
+        clearDropdownInput: function () {
+            document.querySelector('.dropdown input').value = '';
+            document.querySelectorAll('li').forEach((item) => {
+                item.classList.remove('hidden');
+            });
+        }
     },
     mounted() {
         this.closeDropdown()
