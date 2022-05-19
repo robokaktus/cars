@@ -1,23 +1,7 @@
-<!--
-  This example requires Tailwind CSS v2.0+
-
-  This example requires some changes to your config:
-
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
--->
 <template>
     <Layout>
-        <div class="w-full shadow-lg bg-white rounded-2xl mb-2">
-            <div class="lg:flex lg:items-center lg:justify-between w-full mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 z-20">
+        <div class="w-full shadow-lg bg-white rounded-2xl mb-2 overflow-hidden">
+            <div class="banner-image lg:flex lg:items-center lg:justify-between w-full mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 z-20">
                 <h2 class="text-3xl font-extrabold text-black dark:text-white sm:text-4xl">
                     <span class="block">
                         Do you like cars?
@@ -26,20 +10,16 @@
                         Then you are in the right place.
                     </span>
                 </h2>
-                <div class="lg:mt-0 lg:flex-shrink-0">
-                    <div class=" inline-flex rounded-md shadow">
-                        <button type="button"
-                                class="py-4 px-6  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                            Let's Goooo
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="w-full shadow-lg bg-white rounded-2xl mb-2 bg-gradient-to-r from-cyan-500 to-pink-500 h-80 px-8 flex">
             <div class="lg:flex lg:items-center lg:justify-between w-full mx-auto">
                 <div class="lg:mt-0 lg:flex-shrink-0">
-                    <div class=" inline-flex rounded-md shadow">
+                    <div class=" inline-flex rounded-md flex flex-col">
+                        <div class="mb-4">
+                            <h3 class="text-5xl font-semibold mb-2">Text</h3>
+                            <span class="text-xl pl-2">Subtext</span>
+                        </div>
                         <button type="button"
                                 class="py-4 px-6  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                             Купити
@@ -47,7 +27,11 @@
                     </div>
                 </div>
                 <div class="lg:mt-0 lg:flex-shrink-0">
-                    <div class=" inline-flex rounded-md shadow">
+                    <div class="inline-flex rounded-md flex flex-col">
+                        <div class="mb-4 text-right ">
+                            <h3 class="text-5xl font-semibold mb-2">Text</h3>
+                            <span class="text-xl pl-2">Subtext</span>
+                        </div>
                         <button type="button"
                                 class="py-4 px-6  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                             Продати
@@ -58,7 +42,7 @@
         </div>
         <div class="flex justify-between flex-wrap" style="margin: 0 -10px;">
             <a v-for="product in products" :key="product.id" :href="product.href" class="w-1/3 mb-2" style="padding: 0 10px">
-                <div class="flex w-full flex-col justify-center bg-white rounded-2xl shadow-sm">
+                <div class="flex w-full flex-col justify-center bg-white rounded-2xl shadow-lg">
                     <img class="aspect-video w-full rounded-t-2xl object-cover object-center" :src="product.imageSrc" :alt="product.imageAlt" />
                     <div class="p-4">
                         <h1 class="text-2xl font-medium text-slate-600 pb-2">{{ product.name }}</h1>
@@ -69,6 +53,13 @@
         </div>
     </Layout>
 </template>
+
+<style>
+.banner-image {
+    background-image: url('/image/main/banner.jpg');
+    background-position: 1284px -1904px;
+}
+</style>
 
 <script>
 

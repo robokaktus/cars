@@ -1,5 +1,5 @@
 <template>
-    <footer class="bg-white shadow-lg dark:bg-gray-800 w-full py-8 rounded-2xl">
+    <footer class="bg-white shadow-lg dark:bg-gray-800 w-full py-8 rounded-2xl mb-2">
         <div class="max-w-screen-xl mx-auto px-4">
             <ul class="max-w-screen-md mx-auto text-lg font-light flex flex-wrap justify-between">
                 <li class="my-2">
