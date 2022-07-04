@@ -7,7 +7,6 @@ use App\Http\Requests\Sale\StoreSaleRequest;
 use App\Models\Car\BodyType;
 use App\Models\Car\Brand;
 use App\Models\Car\Model;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Nnjeim\World\Models\Country;
 

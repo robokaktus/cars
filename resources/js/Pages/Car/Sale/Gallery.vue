@@ -39,7 +39,7 @@
             <div
                 class="lg:flex flex-col lg:items-center lg:justify-between w-full mx-auto py-12 px-4 sm:px-6 lg:pb-16 lg:pt-6 lg:px-8 z-20">
                 <div class="w-full">
-                    <form @submit.prevent="submit" class="w-full">
+                    <form @submit.prevent="submit(saleId)" class="w-full">
                         <div class="w-full mt-4 flex">
                             <div class="w-full">
                                 <label
@@ -109,8 +109,8 @@ export default {
             medias: null
         })
 
-        function submit() {
-            Inertia.post('/car/sale/' + 1 + '/gallery', form)
+        function submit(saleId) {
+            Inertia.post('/car/sale/' + saleId + '/gallery', form)
         }
 
         return { form, submit }

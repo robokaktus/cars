@@ -64,6 +64,7 @@ return [
      */
     'custom_path_generators' => [
         // Model::class => PathGenerator::class
+        \App\Models\Sale\Sale::class => \App\Http\Services\Medialibrary\SaleMediaPathGenerator::class
     ],
 
     /*

@@ -17,8 +17,9 @@ class GalleryController extends Controller
 
     public function store(Sale $sale, StoreGalleryRequest $storeGalleryRequest): Response
     {
-        $sale->addMultipleMediaFromRequest(['medias'])->each(function ($fileAdder) {
-            $fileAdder->toMediaCollection('car');
+        $sale->addMultipleMediaFromRequest(['medias'])->each(function ($fileAdder, $index) {
+            $name = 'sale-' . $index + 1 . '.' . $fileAdder->file->getClientOriginalExtension();
+            $fileAdder->usingFileName($name)->usingName($name)->toMediaCollection('car');
         });
 
         return CrashController::renderInertia($sale->id);
