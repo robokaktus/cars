@@ -1,0 +1,80 @@
+server {
+
+    listen   80;
+    listen   [::]:80;
+    listen   443 default_server ssl;
+
+    server_name _;
+
+    ssl_certificate     /etc/nginx/ssl/server.crt;
+    ssl_certificate_key /etc/nginx/ssl/server.key;
+
+    if ($scheme = http) {
+      #return 301 https://$server_name$request_uri;
+    }
+
+    root "/var/www/html/public";
+
+    index index.html index.htm index.php;
+
+    charset utf-8;
+    
+    set_real_ip_from 0.0.0.0/0; 
+    real_ip_header X-Forwarded-For;
+
+    rewrite ^([^.]*[^/])$ $1/ permanent;
+
+    location / {
+       try_files $uri $uri/ /index.php?$query_string;
+
+        gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript image/svg+xml;
+        gzip_comp_level 5;
+        location ~* ^.+\.(?:css|cur|js|jpe?g|gif|htc|ico|png|html|otf|ttf|eot|woff|woff2|svg|mp4|webp)$ {
+                add_header Cache-Control public;
+                expires 90d;
+                add_header Vary Accept-Encoding;
+                access_log off;
+        }
+
+    }
+
+
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    #location = /robots.txt  { access_log off; log_not_found off; }
+
+    access_log off;
+    error_log  /var/log/nginx/stripo-error.log error;
+
+    sendfile off;
+
+    client_max_body_size 100m;
+
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        #fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
+        fastcgi_pass localhost:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+
+
+        fastcgi_intercept_errors off;
+        fastcgi_buffer_size 16k;
+        fastcgi_buffers 4 16k;
+        fastcgi_connect_timeout 300;
+        fastcgi_send_timeout 300;
+        fastcgi_read_timeout 300;
+    }
+
+    location /life_time_deals {
+        alias /var/www/html/storage/app/life_time_deals;
+        auth_basic "Restricted Content";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+}
