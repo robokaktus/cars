@@ -1,41 +1,121 @@
-# For more information: https://laravel.com/docs/sail
-version: '3.5'
-services:
-    robokar:
-        build:
-            context: src
-            dockerfile: ./docker-files/Dockerfile
-            args:
-                WWWGROUP: 'www-data'
-        ports:
-            - "80:80"
-        container_name: robokar
-        environment:
-            WWWUSER: 'www-data'
-        volumes:
-            - './src:/var/www/html'
-        networks:
-            robocar_network:
-                ipv4_address: 172.1.0.2
-        depends_on:
-            - mysql
-            - redis
-    mysql:
-        image: 'mysql:8.0'
-        command: --default-authentication-plugin=mysql_native_password
-        ports:
-            - '3307:3306'
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: robocar
-        volumes:
-            - './mysql-data:/var/lib/mysql'
-        networks:
-            robocar_network:
-                ipv4_address: 172.1.0.3
+version: '3.7'
+
 networks:
     robocar_network:
         driver: bridge
         ipam:
             config:
                 - subnet: 172.1.0.0/24
+
+services:
+    site:
+        build:
+            context: ./dockerfiles
+            dockerfile: nginx.root.dockerfile
+        container_name: nginx
+        ports:
+            - 80:80
+        volumes:
+            - ./src:/var/www/html:delegated
+        depends_on:
+            - php
+            - redis
+            - mysql
+            - mailhog
+        networks:
+            robocar_network:
+                ipv4_address: 172.1.0.2
+
+    mysql:
+        image: mysql:8.0
+        container_name: mysql
+        restart: unless-stopped
+        tty: true
+        ports:
+            - 3307:3306
+        environment:
+            MYSQL_DATABASE: robocar
+            MYSQL_USER: robocar
+            MYSQL_PASSWORD: secret
+            MYSQL_ROOT_PASSWORD: root
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        volumes:
+            - './mysql-data:/var/lib/mysql'
+        networks:
+            robocar_network:
+                ipv4_address: 172.1.0.3
+
+    php:
+        build:
+            context: ./dockerfiles
+            dockerfile: php.root.dockerfile
+        container_name: php
+        volumes:
+            - ./src:/var/www/html:delegated
+        networks:
+            robocar_network:
+                ipv4_address: 172.1.0.4
+
+    redis:
+        image: redis:alpine
+        container_name: redis
+        restart: unless-stopped
+        ports:
+            - 6379:6379
+        networks:
+            robocar_network:
+                ipv4_address: 172.1.0.5
+
+    composer:
+        image: composer:2
+        container_name: composer
+        volumes:
+            - ./src:/var/www/html
+        working_dir: /var/www/html
+        depends_on:
+            - php
+        user: root
+        entrypoint: ['composer', '--ignore-platform-reqs']
+        networks:
+            robocar_network:
+                ipv4_address: 172.1.0.6
+
+    npm:
+        image: node:13.7
+        container_name: npm
+        volumes:
+            - ./src:/var/www/html
+        ports:
+            - 3000:3000
+            - 3001:3001
+        working_dir: /var/www/html
+        entrypoint: ['npm']
+        networks:
+            robocar_network:
+                ipv4_address: 172.1.0.7
+
+    artisan:
+        build:
+            context: ./dockerfiles
+            dockerfile: php.root.dockerfile
+        container_name: artisan
+        volumes:
+            - ./src:/var/www/html:delegated
+        depends_on:
+            - mysql
+        working_dir: /var/www/html
+        entrypoint: ['php', '/var/www/html/artisan']
+        networks:
+            robocar_network:
+                ipv4_address: 172.1.0.8
+
+    mailhog:
+        image: mailhog/mailhog:latest
+        container_name: mailhog
+        ports:
+            - 1025:1025
+            - 8025:8025
+        networks:
+            robocar_network:
+                ipv4_address: 172.1.0.9

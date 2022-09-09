@@ -7,21 +7,8 @@ return [
 	|--------------------------------------------------------------------------
 	*/
 	'accepted_locales' => [
-//		'ar',
-//		'bn',
-//		'br',
-//		'de',
 		'en',
-//		'es',
-//		'fr',
-//		'ja',
-//		'kr',
-//		'nl',
-//		'pl',
-//		'pt',
-//		'ro',
 		'ru',
-//		'zh',
 	],
 	/*
 	|--------------------------------------------------------------------------
@@ -32,9 +19,9 @@ return [
 	'modules' => [
 		'states' => true,
 		'cities' => true,
-		'timezones' => true,
-		'currencies' => true,
-		'languages' => true,
+		'timezones' => false,
+		'currencies' => false,
+		'languages' => false,
 	],
 	/*
 	|--------------------------------------------------------------------------
@@ -52,7 +39,7 @@ return [
 			'table_name' => 'countries',
 			'optional_fields' => [
 				'phone_code' => [
-					'required' => true,
+					'required' => false,
 					'type' => 'string',
 					'length' => 5,
 				],

@@ -15,3 +15,6 @@
 /src/.vscode
 /src/.idea
 /mysql-data
+mysql
+.DS_Store
+.idea
