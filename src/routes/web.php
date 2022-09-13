@@ -28,20 +28,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/car/sale', [MainController::class, 'index']);
-Route::post('/car/sale', [MainController::class, 'store']);
 
-Route::get('/car/sale/{sale}/preferences', [PreferencesController::class, 'index'])->name('car.sale-sale.preferences');
-Route::post('/car/sale/{sale}/preferences', [PreferencesController::class, 'store']);
-
-Route::get('/car/sale/{sale}/gallery', [GalleryController::class, 'index'])->name('car.sale-sale.gallery');
-Route::post('/car/sale/{sale}/gallery', [GalleryController::class, 'store']);
-
-Route::get('/car/sale/{sale}/crash', [CrashController::class, 'index'])->name('car.sale-sale.crash');
-Route::post('/car/sale/{sale}/crash', [CrashController::class, 'store']);
-
-Route::get('/car/sale/{sale}/features', [PreferencesController::class, 'index'])->name('car.sale-sale.features');
-Route::post('/car/sale/{sale}/features', [PreferencesController::class, 'store']);
 
 Route::get('/car/features', function () {
     return Inertia::render('Car/Sale/Features');
@@ -59,4 +46,18 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+    Route::get('/car/sale', [MainController::class, 'index']);
+    Route::post('/car/sale', [MainController::class, 'store']);
+
+    Route::get('/car/sale/{sale}/preferences', [PreferencesController::class, 'index'])->name('car.sale-sale.preferences');
+    Route::post('/car/sale/{sale}/preferences', [PreferencesController::class, 'store']);
+
+    Route::get('/car/sale/{sale}/gallery', [GalleryController::class, 'index'])->name('car.sale-sale.gallery');
+    Route::post('/car/sale/{sale}/gallery', [GalleryController::class, 'store']);
+
+    Route::get('/car/sale/{sale}/crash', [CrashController::class, 'index'])->name('car.sale-sale.crash');
+    Route::post('/car/sale/{sale}/crash', [CrashController::class, 'store']);
+
+    Route::get('/car/sale/{sale}/features', [PreferencesController::class, 'index'])->name('car.sale-sale.features');
+    Route::post('/car/sale/{sale}/features', [PreferencesController::class, 'store']);
 });

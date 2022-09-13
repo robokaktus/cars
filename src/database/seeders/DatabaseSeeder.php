@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             FeaturesSeeder::class,
             DriveTypesSeeder::class,
             FuelTypesSeeder::class,
-            GearboxTypesSeeder::class
+            GearboxTypesSeeder::class,
+            WorldSeeder::class
         ]);
     }
 }

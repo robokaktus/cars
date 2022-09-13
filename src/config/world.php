@@ -3,12 +3,29 @@
 return [
 	/*
 	|--------------------------------------------------------------------------
+	| Allowed countries to be loaded
+	| Leave it empty to load all countries else include the country iso2
+	| value in the allowed_countries array
+	|--------------------------------------------------------------------------
+	*/
+	'allowed_countries' => ['UA'],
+
+	/*
+	|--------------------------------------------------------------------------
+	| Disallowed countries to not be loaded
+	| Leave it empty to allow all countries to be loaded else include the
+	| country iso2 value in the disallowed_countries array
+	|--------------------------------------------------------------------------
+	*/
+	'disallowed_countries' => [],
+
+	/*
+	|--------------------------------------------------------------------------
 	| Supported locales.
 	|--------------------------------------------------------------------------
 	*/
 	'accepted_locales' => [
 		'en',
-		'ru',
 	],
 	/*
 	|--------------------------------------------------------------------------
@@ -28,7 +45,7 @@ return [
 	| Routes.
 	|--------------------------------------------------------------------------
 	*/
-	'routes' => true,
+	'routes' => false,
 	/*
 	|--------------------------------------------------------------------------
 	| Migrations.
@@ -44,7 +61,7 @@ return [
 					'length' => 5,
 				],
 				'iso3' => [
-					'required' => true,
+					'required' => false,
 					'type' => 'string',
 					'length' => 3,
 				],
