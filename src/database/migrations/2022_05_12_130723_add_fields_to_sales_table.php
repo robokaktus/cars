@@ -20,10 +20,10 @@ return new class extends Migration
             $table->boolean('is_hide_vin_number')->after('vin_number')->default(false)->index();
         });
         Schema::table('sales', function (Blueprint $table) {
-            $table->boolean('telegram')->after('phone_number')->nullable();
+            $table->string('telegram')->after('phone_number')->nullable();
         });
         Schema::table('sales', function (Blueprint $table) {
-            $table->boolean('email')->after('telegram')->nullable();
+            $table->string('email')->after('telegram')->nullable();
         });
     }
 
