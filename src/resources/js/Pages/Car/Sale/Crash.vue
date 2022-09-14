@@ -182,14 +182,14 @@ export default {
             Inertia.post('/car/sale/' + this.saleId + '/crash', this.form)
         }
     },
-    updated() {
-        Object.values(this.$attrs["errors"]).forEach((item) => {
-            this.$flashMessage.show({
-                type: 'error',
-                title: item,
-                message: item
-            });
-        });
-    }
+    // updated() {
+    //     Object.values(this.$attrs["errors"]).forEach((item) => {
+    //         this.$flashMessage.show({
+    //             type: 'error',
+    //             title: item,
+    //             message: item
+    //         });
+    //     });
+    // }
 }
 </script>
