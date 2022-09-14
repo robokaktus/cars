@@ -8,6 +8,7 @@ use App\Models\Car\GearboxType;
 use App\Models\Car\TechnicalCondition;
 use App\Models\Paint\Condition;
 use App\Models\Paint\Paint;
+use App\Models\Paint\Type;
 use App\Models\Sale\Preference;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -30,7 +31,7 @@ class PreferenceFactory extends Factory
             'sale_id' => null,
             'description' => fake()->paragraph,
             'paint_id' => Paint::inRandomOrder()->first()->id,
-            'paint_type_id' => Condition::inRandomOrder()->first()->id,
+            'paint_type_id' => Type::inRandomOrder()->first()->id,
             'paint_condition_id' => Condition::inRandomOrder()->first()->id,
             'technical_condition_id' => TechnicalCondition::inRandomOrder()->first()->id,
             'fuel_type_id' => FuelType::inRandomOrder()->first()->id,

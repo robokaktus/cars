@@ -30,64 +30,194 @@
                             </g>
                         </svg>
                     </div>
-                    <nav class="mt-6 p-2">
-                        <div class="w-64">
-                            <div class="mt-1 relative">
-                                <button type="button"
-                                        class="relative w-full bg-white rounded-md shadow-lg pl-3 pr-10 py-3 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            <span class="flex items-center">
-                <img src="/images/person/2.jpeg" alt="person" class="flex-shrink-0 h-6 w-6 rounded-full"/>
-                <span class="ml-3 block truncate">
-                    John Jackson
-                </span>
-            </span>
-                                    <span
-                                        class="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                     fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd"
-                          d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                          clip-rule="evenodd">
-                    </path>
-                </svg>
-            </span>
-                                </button>
-                                <div class="absolute mt-1 w-full z-10 rounded-md bg-white shadow-lg">
-                                    <ul tabindex="-1" role="listbox" aria-labelledby="listbox-label"
-                                        aria-activedescendant="listbox-item-3"
-                                        class="max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                                        <li id="listbox-item-0" role="option"
-                                            class="text-gray-900 cursor-default hover:bg-indigo-500 hover:text-white select-none relative py-2 pl-3 pr-9">
-                                            <div class="flex items-center">
-                                                <img src="/images/person/1.jpg" alt="person"
-                                                     class="flex-shrink-0 h-6 w-6 rounded-full"/>
-                                                <span class="ml-3 block font-normal truncate">
-                            Mick Poulaz
-                        </span>
-                                            </div>
-                                            <span class="absolute inset-y-0 right-0 flex items-center pr-4">
-                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                             aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                  clip-rule="evenodd">
-                            </path>
-                        </svg>
-                    </span>
-                                        </li>
-                                        <li id="listbox-item-1" role="option"
-                                            class="text-gray-900 cursor-default select-none hover:bg-indigo-500 hover:text-white relative py-2 pl-3 pr-9">
-                                            <div class="flex items-center">
-                                                <img src="/images/person/1.jpg" alt="person"
-                                                     class="flex-shrink-0 h-6 w-6 rounded-full"/>
-                                                <span class="ml-3 block font-normal truncate">
-                            Julien Schiano
-                        </span>
-                                            </div>
-                                        </li>
-                                    </ul>
+                    <nav class="p-2">
+                        <div class="mt-6">
+                            <Listbox as="div" v-model="selectedBrand">
+                                <ListboxLabel class="block text-sm font-medium text-gray-700">Brand</ListboxLabel>
+                                <div class="relative mt-1">
+                                    <ListboxButton
+                                        class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
+                                        <span class="flex items-center">
+                                          <span class="ml-3 block truncate">{{ selectedBrand.title }}</span>
+                                        </span>
+                                        <span
+                                            class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                                        </span>
+                                    </ListboxButton>
+                                    <transition leave-active-class="transition ease-in duration-100"
+                                                leave-from-class="opacity-100" leave-to-class="opacity-0">
+                                        <ListboxOptions
+                                            class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                            <ListboxOption as="template" v-for="brand in brands" :key="brand.id"
+                                                           :value="brand" v-slot="{ active, selected }">
+                                                <li :class="[active ? 'text-white bg-indigo-600' : 'text-gray-900', 'relative cursor-default select-none py-2 pl-3 pr-9']">
+                                                    <div class="flex items-center">
+                                                        <span
+                                                            :class="[selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate']">{{
+                                                                brand.title
+                                                            }}</span>
+                                                    </div>
+
+                                                    <span v-if="selected"
+                                                          :class="[active ? 'text-white' : 'text-indigo-600', 'absolute inset-y-0 right-0 flex items-center pr-4']">
+                                                        <CheckIcon class="h-5 w-5" aria-hidden="true"/>
+                                                    </span>
+                                                </li>
+                                            </ListboxOption>
+                                        </ListboxOptions>
+                                    </transition>
                                 </div>
-                            </div>
+                            </Listbox>
+                        </div>
+                        <div class="mt-6">
+                            <Listbox as="div" v-model="selectedModel">
+                                <ListboxLabel class="block text-sm font-medium text-gray-700">Model</ListboxLabel>
+                                <div class="relative mt-1">
+                                    <ListboxButton
+                                        class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
+                                        <span class="flex items-center">
+                                          <span class="ml-3 block truncate">{{ selectedModel.title }}</span>
+                                        </span>
+                                        <span
+                                            class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                                        </span>
+                                    </ListboxButton>
+                                    <transition leave-active-class="transition ease-in duration-100"
+                                                leave-from-class="opacity-100" leave-to-class="opacity-0">
+                                        <ListboxOptions
+                                            class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                            <ListboxOption as="template" v-for="model in models" :key="model.id"
+                                                           :value="model" v-slot="{ active, selected }">
+                                                <li :class="[active ? 'text-white bg-indigo-600' : 'text-gray-900', 'relative cursor-default select-none py-2 pl-3 pr-9']">
+                                                    <div class="flex items-center">
+                                                        <span
+                                                            :class="[selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate']">{{
+                                                                model.title
+                                                            }}</span>
+                                                    </div>
+
+                                                    <span v-if="selected"
+                                                          :class="[active ? 'text-white' : 'text-indigo-600', 'absolute inset-y-0 right-0 flex items-center pr-4']">
+                                                        <CheckIcon class="h-5 w-5" aria-hidden="true"/>
+                                                    </span>
+                                                </li>
+                                            </ListboxOption>
+                                        </ListboxOptions>
+                                    </transition>
+                                </div>
+                            </Listbox>
+                        </div>
+                        <div class="mt-6">
+                            <Listbox as="div" v-model="selectedRegion">
+                                <ListboxLabel class="block text-sm font-medium text-gray-700">Region</ListboxLabel>
+                                <div class="relative mt-1">
+                                    <ListboxButton
+                                        class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
+                                        <span class="flex items-center">
+                                          <span class="ml-3 block truncate">{{ selectedRegion.name }}</span>
+                                        </span>
+                                        <span
+                                            class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                                        </span>
+                                    </ListboxButton>
+                                    <transition leave-active-class="transition ease-in duration-100"
+                                                leave-from-class="opacity-100" leave-to-class="opacity-0">
+                                        <ListboxOptions
+                                            class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                            <ListboxOption as="template" v-for="region in regions" :key="region.id"
+                                                           :value="region" v-slot="{ active, selected }">
+                                                <li :class="[active ? 'text-white bg-indigo-600' : 'text-gray-900', 'relative cursor-default select-none py-2 pl-3 pr-9']">
+                                                    <div class="flex items-center">
+                                                        <span
+                                                            :class="[selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate']">
+                                                            {{ region.name }}</span>
+                                                    </div>
+
+                                                    <span v-if="selected"
+                                                          :class="[active ? 'text-white' : 'text-indigo-600', 'absolute inset-y-0 right-0 flex items-center pr-4']">
+                                                        <CheckIcon class="h-5 w-5" aria-hidden="true"/>
+                                                    </span>
+                                                </li>
+                                            </ListboxOption>
+                                        </ListboxOptions>
+                                    </transition>
+                                </div>
+                            </Listbox>
+                        </div>
+                        <div class="mt-6">
+                            <Listbox as="div" v-model="selectedCity">
+                                <ListboxLabel class="block text-sm font-medium text-gray-700">City</ListboxLabel>
+                                <div class="relative mt-1">
+                                    <ListboxButton
+                                        class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
+                                        <span class="flex items-center">
+                                          <span class="ml-3 block truncate">{{ selectedCity.name }}</span>
+                                        </span>
+                                        <span
+                                            class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                                        </span>
+                                    </ListboxButton>
+                                    <transition leave-active-class="transition ease-in duration-100"
+                                                leave-from-class="opacity-100" leave-to-class="opacity-0">
+                                        <ListboxOptions
+                                            class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                            <ListboxOption as="template" v-for="city in cities" :key="city.id"
+                                                           :value="city" v-slot="{ active, selected }">
+                                                <li :class="[active ? 'text-white bg-indigo-600' : 'text-gray-900', 'relative cursor-default select-none py-2 pl-3 pr-9']">
+                                                    <div class="flex items-center">
+                                                        <span
+                                                            :class="[selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate']">
+                                                            {{ city.name }}</span>
+                                                    </div>
+
+                                                    <span v-if="selected"
+                                                          :class="[active ? 'text-white' : 'text-indigo-600', 'absolute inset-y-0 right-0 flex items-center pr-4']">
+                                                        <CheckIcon class="h-5 w-5" aria-hidden="true"/>
+                                                    </span>
+                                                </li>
+                                            </ListboxOption>
+                                        </ListboxOptions>
+                                    </transition>
+                                </div>
+                            </Listbox>
+                        </div>
+                        <div class="mt-6">
+                            <Listbox as="div" v-model="selectedBodyType">
+                                <ListboxLabel class="block text-sm font-medium text-gray-700">Body Type</ListboxLabel>
+                                <div class="relative mt-1">
+                                    <ListboxButton
+                                        class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
+                                        <span class="flex items-center">
+                                          <span class="ml-3 block truncate">{{ selectedBodyType.title }}</span>
+                                        </span>
+                                        <span
+                                            class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                                        </span>
+                                    </ListboxButton>
+                                    <transition leave-active-class="transition ease-in duration-100"
+                                                leave-from-class="opacity-100" leave-to-class="opacity-0">
+                                        <ListboxOptions
+                                            class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                            <ListboxOption as="template" v-for="bodyType in body_types" :key="bodyType.id"
+                                                           :value="bodyType" v-slot="{ active, selected }">
+                                                <li :class="[active ? 'text-white bg-indigo-600' : 'text-gray-900', 'relative cursor-default select-none py-2 pl-3 pr-9']">
+                                                    <div class="flex items-center">
+                                                        <span
+                                                            :class="[selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate']">{{
+                                                                bodyType.title
+                                                            }}</span>
+                                                    </div>
+
+                                                    <span v-if="selected"
+                                                          :class="[active ? 'text-white' : 'text-indigo-600', 'absolute inset-y-0 right-0 flex items-center pr-4']">
+                                                        <CheckIcon class="h-5 w-5" aria-hidden="true"/>
+                                                    </span>
+                                                </li>
+                                            </ListboxOption>
+                                        </ListboxOptions>
+                                    </transition>
+                                </div>
+                            </Listbox>
                         </div>
                     </nav>
                 </div>
@@ -133,22 +263,23 @@
                 </header>
                 <div class="overflow-auto h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
                     <div class="flex flex-col flex-wrap sm:flex-row ">
-                        <swiper v-for="product in products"
+                        <swiper v-for="sale in sales.data"
                                 :effect="'flip'"
                                 :grabCursor="true"
                                 :pagination="false"
                                 :navigation="false"
                                 :modules="modules"
-                                class="w-full sm:w-1/2 xl:w-1/3 mb-4" style="padding: 0 10px"
+                                class="w-full sm:w-1/2 xl:w-1/4 mb-4" style="padding: 0 10px"
                         >
                             <swiper-slide>
                                 <div class="flex w-full flex-col justify-center bg-white rounded-2xl shadow-sm">
                                     <img class="aspect-video w-full rounded-t-2xl object-cover object-center"
-                                         :src="product.imageSrc" :alt="product.imageAlt"/>
+                                         src="https://scuffedentertainment.com/wp-content/uploads/2021/11/what-car-suits-you-best-quiz.jpg"/>
                                     <div class="p-4">
-                                        <h1 class="text-2xl font-medium text-slate-600 pb-2">{{ product.name }}</h1>
+                                        <h1 class="text-2xl font-medium text-slate-600 pb-2">{{ sale.brand.title }}
+                                            {{ sale.model.title }} {{ sale.manufactured_at }}</h1>
                                         <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
-                                            {{ product.price }}</p>
+                                            {{ sale.price }}</p>
                                     </div>
                                 </div>
                             </swiper-slide>
@@ -165,6 +296,16 @@
                             </swiper-slide>
                         </swiper>
                     </div>
+                    <div class="mt-4">
+                        <Component
+                            :is="link.url ? 'Link' : 'span'"
+                            v-for="link in sales.links"
+                            :href="link.url"
+                            v-html="link.label"
+                            class="px-1"
+                            :class="link.url ? '' : 'text-gray-500'"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
@@ -173,40 +314,6 @@
 </template>
 
 <script>
-const products = [
-    {
-        id: 1,
-        name: 'Earthen Bottle',
-        href: '#',
-        price: '$48',
-        imageSrc: 'https://scuffedentertainment.com/wp-content/uploads/2021/11/what-car-suits-you-best-quiz.jpg',
-        imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
-    },
-    {
-        id: 2,
-        name: 'Nomad Tumbler',
-        href: '#',
-        price: '$35',
-        imageSrc: 'https://scuffedentertainment.com/wp-content/uploads/2021/11/what-car-suits-you-best-quiz.jpg',
-        imageAlt: 'Olive drab green insulated bottle with flared screw lid and flat top.',
-    },
-    {
-        id: 3,
-        name: 'Focus Paper Refill',
-        href: '#',
-        price: '$89',
-        imageSrc: 'https://scuffedentertainment.com/wp-content/uploads/2021/11/what-car-suits-you-best-quiz.jpg',
-        imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
-    },
-    {
-        id: 4,
-        name: 'Machined Mechanical Pencil',
-        href: '#',
-        price: '$35',
-        imageSrc: 'https://scuffedentertainment.com/wp-content/uploads/2021/11/what-car-suits-you-best-quiz.jpg',
-        imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
-    }
-]
 import {Swiper, SwiperSlide} from "swiper/vue";
 
 // Import Swiper styles
@@ -214,16 +321,58 @@ import "swiper/css";
 import "swiper/css/effect-flip";
 
 // import required modules
+import {Link} from "@inertiajs/inertia-vue3";
 import {EffectFlip, Pagination, Navigation} from "swiper";
 
+import {ref} from 'vue';
+import {Listbox, ListboxButton, ListboxLabel, ListboxOption, ListboxOptions} from '@headlessui/vue';
+import {CheckIcon} from '@vue-hero-icons/solid';
+
 export default {
+    props: {
+        sales: Object,
+        brands: Object,
+        models: Object,
+        regions: Object,
+        cities: Object,
+        body_types: Object,
+    },
     components: {
         Swiper,
         SwiperSlide,
+        Link,
+        Listbox,
+        ListboxButton,
+        ListboxLabel,
+        ListboxOption,
+        ListboxOptions,
+        CheckIcon
     },
+
     setup() {
         return {
-            modules: [EffectFlip, Pagination, Navigation], products
+            modules: [EffectFlip, Pagination, Navigation],
+            selectedBrand: {
+                id: 0,
+                title: 'Choose brand'
+            },
+            selectedModel: {
+                id: 0,
+                title: 'Choose model'
+            },
+            selectedRegion: {
+                id: 0,
+                name: 'Choose region'
+            },
+            selectedCity: {
+                id: 0,
+                name: 'Choose city'
+            },
+            selectedBodyType: {
+                id: 0,
+                title: 'Choose body type'
+            },
+
         };
     },
 };

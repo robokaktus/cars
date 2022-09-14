@@ -86,7 +86,7 @@ return [
 					'type' => 'string',
 				],
 				'emoji' => [
-					'required' => false,
+					'required' => true,
 					'type' => 'string',
 				],
 				'emojiU' => [

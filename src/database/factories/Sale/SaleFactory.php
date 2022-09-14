@@ -68,6 +68,8 @@ class SaleFactory extends Factory
             ])->create();
 
             $sale->features()->attach(Feature::take(random_int(1, 10))->pluck('id'));
+                $sale->addMediaFromUrl('https://media.wired.com/photos/5a207b8740ed7f46060c7dda/master/w_2560%2Cc_limit/lucid-roundup-TA.jpg')->toMediaCollection('sale');
+                $sale->addMediaFromUrl('https://scuffedentertainment.com/wp-content/uploads/2021/11/what-car-suits-you-best-quiz.jpg')->toMediaCollection('sale');
         });
     }
 }
