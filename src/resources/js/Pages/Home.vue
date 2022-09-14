@@ -111,9 +111,6 @@ const navigation = [
 ]
 
 export default {
-    props: {
-        sales: Array
-    },
     components: {
         Popover,
         PopoverButton,

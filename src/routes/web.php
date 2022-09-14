@@ -19,7 +19,14 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\Car\CatalogController::class, 'index']);
+Route::get('/', function () {
+    return Inertia::render('Home', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
 
 
 
@@ -27,9 +34,7 @@ Route::get('/car/features', function () {
     return Inertia::render('Car/Sale/Features');
 });
 
-Route::get('/car/catalog', function () {
-    return Inertia::render('Car/Catalog');
-});
+Route::get('/car/catalog', [\App\Http\Controllers\Car\CatalogController::class, 'index']);
 
 Route::middleware([
     'auth:sanctum',

@@ -10,6 +10,7 @@ use App\Models\Car\FuelType;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Nnjeim\World\Models\City;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -40,6 +41,11 @@ class Sale extends Model implements HasMedia
         'horsepower',
         'mileage',
         'user_id'
+    ];
+
+    protected $casts = [
+        'is_hide_state_number' => 'boolean',
+        'is_hide_vin_number' => 'boolean'
     ];
 
     public function brand()
@@ -80,5 +86,10 @@ class Sale extends Model implements HasMedia
     public function fuelEconomy()
     {
         return $this->hasOne(FuelType::class, 'sale_id', 'id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id', 'id');
     }
 }
