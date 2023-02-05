@@ -8,6 +8,7 @@ use App\Models\Car\Crash;
 use App\Models\Car\Feature;
 use App\Models\Car\FuelType;
 use App\Models\User;
+use Bizhub\QueryFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nnjeim\World\Models\City;
@@ -18,6 +19,7 @@ class Sale extends Model implements HasMedia
 {
     use InteractsWithMedia;
     use HasFactory;
+    use Filterable;
 
     protected $table = 'sales';
 

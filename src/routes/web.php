@@ -35,7 +35,7 @@ Route::get('/car/features', function () {
     return Inertia::render('Car/Sale/Features');
 });
 
-Route::get('/car/catalog', [\App\Http\Controllers\Car\CatalogController::class, 'index']);
+Route::get('/car/catalog', [\App\Http\Controllers\Car\CatalogController::class, 'index'])->name('car.catalog');
 Route::post('/brands/{brand}/load-models', [\App\Http\Controllers\Car\BrandController::class, 'loadModels']);
 
 Route::middleware([

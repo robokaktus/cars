@@ -60,72 +60,73 @@ class CatalogController extends Controller
             'preference.gearboxType',
             'preference.driveType',
             'preference.deliveredFrom'
-        ])->paginate(12)->through(fn(Sale $sale) => [
-            'price' => $sale->price,
-            'old_price' => $sale->old_price,
-            'manufactured_at' => $sale->manufactured_at,
-            'state_number' => $sale->state_number,
-            'is_hide_state_number' => $sale->is_hide_state_number,
-            'vin_number' => $sale->vin_number,
-            'is_hide_vin_number' => $sale->is_hide_vin_number,
-            'engine_capacity' => $sale->engine_capacity,
-            'horsepower' => $sale->horsepower,
-            'mileage' => $sale->mileage,
-            'phone_number' => $sale->phone_number,
-            'telegram' => $sale->telegram,
-            'email' => $sale->email,
-            'brand' => [
-                'title' => $sale->brand->title
-            ],
-            'model' => [
-                'title' => $sale->model->title
-            ],
-            'body_type' => [
-                'title' => $sale->bodyType->title,
-                'description' => $sale->bodyType->description,
-                'icon' => $sale->bodyType->icon,
-            ],
-            'city' => $sale->city->name,
-            'user' => $sale->user->name,
-            'description' => $sale->preference->description,
-            'paint' => [
-                'title' => $sale->preference->paint->title,
-                'color_code' => $sale->preference->paint->color_code,
-            ],
-            'paint_type' => [
-                'title' => $sale->preference->paintType->title,
-                'description' => $sale->preference->paintType->description,
-                'icon' => $sale->preference->paintType->icon,
-            ],
-            'paint_condition' => [
-                'title' => $sale->preference->paintCondition->title,
-                'description' => $sale->preference->paintCondition->description,
-                'icon' => $sale->preference->paintCondition->icon,
-            ],
-            'technical_condition' => [
-                'title' => $sale->preference->technicalCondition->title,
-                'description' => $sale->preference->technicalCondition->description,
-                'icon' => $sale->preference->technicalCondition->icon,
-            ],
-            'fuel_type' => [
-                'title' => $sale->preference->fuelType->title,
-                'description' => $sale->preference->fuelType->description,
-                'icon' => $sale->preference->fuelType->icon,
-            ],
-            'gearbox_type' => [
-                'title' => $sale->preference->gearboxType->title,
-                'description' => $sale->preference->gearboxType->description,
-                'icon' => $sale->preference->gearboxType->icon,
-            ],
-            'drive_type' => [
-                'title' => $sale->preference->DriveType->title,
-                'description' => $sale->preference->DriveType->description,
-                'icon' => $sale->preference->DriveType->icon,
-            ],
-            'delivered_from' => $sale->preference->deliveredFrom?->name,
-            'is_cleared_through_customs' => $sale->preference->is_cleared_through_customs,
-            'is_traded' => $sale->preference->is_traded,
-            'is_exchanged' => $sale->preference->is_exchanged,
-        ]);
+        ])->filter()->paginate(12);
+//            ->through(fn(Sale $sale) => [
+//            'price' => $sale->price,
+//            'old_price' => $sale->old_price,
+//            'manufactured_at' => $sale->manufactured_at,
+//            'state_number' => $sale->state_number,
+//            'is_hide_state_number' => $sale->is_hide_state_number,
+//            'vin_number' => $sale->vin_number,
+//            'is_hide_vin_number' => $sale->is_hide_vin_number,
+//            'engine_capacity' => $sale->engine_capacity,
+//            'horsepower' => $sale->horsepower,
+//            'mileage' => $sale->mileage,
+//            'phone_number' => $sale->phone_number,
+//            'telegram' => $sale->telegram,
+//            'email' => $sale->email,
+//            'brand' => [
+//                'title' => $sale->brand->title
+//            ],
+//            'model' => [
+//                'title' => $sale->model->title
+//            ],
+//            'body_type' => [
+//                'title' => $sale->bodyType->title,
+//                'description' => $sale->bodyType->description,
+//                'icon' => $sale->bodyType->icon,
+//            ],
+//            'city' => $sale->city->name,
+//            'user' => $sale->user->name,
+//            'description' => $sale->preference->description,
+//            'paint' => [
+//                'title' => $sale->preference->paint->title,
+//                'color_code' => $sale->preference->paint->color_code,
+//            ],
+//            'paint_type' => [
+//                'title' => $sale->preference->paintType->title,
+//                'description' => $sale->preference->paintType->description,
+//                'icon' => $sale->preference->paintType->icon,
+//            ],
+//            'paint_condition' => [
+//                'title' => $sale->preference->paintCondition->title,
+//                'description' => $sale->preference->paintCondition->description,
+//                'icon' => $sale->preference->paintCondition->icon,
+//            ],
+//            'technical_condition' => [
+//                'title' => $sale->preference->technicalCondition->title,
+//                'description' => $sale->preference->technicalCondition->description,
+//                'icon' => $sale->preference->technicalCondition->icon,
+//            ],
+//            'fuel_type' => [
+//                'title' => $sale->preference->fuelType->title,
+//                'description' => $sale->preference->fuelType->description,
+//                'icon' => $sale->preference->fuelType->icon,
+//            ],
+//            'gearbox_type' => [
+//                'title' => $sale->preference->gearboxType->title,
+//                'description' => $sale->preference->gearboxType->description,
+//                'icon' => $sale->preference->gearboxType->icon,
+//            ],
+//            'drive_type' => [
+//                'title' => $sale->preference->DriveType->title,
+//                'description' => $sale->preference->DriveType->description,
+//                'icon' => $sale->preference->DriveType->icon,
+//            ],
+//            'delivered_from' => $sale->preference->deliveredFrom?->name,
+//            'is_cleared_through_customs' => $sale->preference->is_cleared_through_customs,
+//            'is_traded' => $sale->preference->is_traded,
+//            'is_exchanged' => $sale->preference->is_exchanged,
+//        ]);
     }
 }
