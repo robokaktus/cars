@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Sale\CrashController;
+use App\Http\Controllers\Sale\FeaturesController;
 use App\Http\Controllers\Sale\GalleryController;
 use App\Http\Controllers\Sale\MainController;
 use App\Http\Controllers\Sale\PreferencesController;
@@ -35,6 +36,7 @@ Route::get('/car/features', function () {
 });
 
 Route::get('/car/catalog', [\App\Http\Controllers\Car\CatalogController::class, 'index']);
+Route::post('/brands/{brand}/load-models', [\App\Http\Controllers\Car\BrandController::class, 'loadModels']);
 
 Route::middleware([
     'auth:sanctum',
@@ -56,6 +58,6 @@ Route::middleware([
     Route::get('/car/sale/{sale}/crash', [CrashController::class, 'index'])->name('car.sale-sale.crash');
     Route::post('/car/sale/{sale}/crash', [CrashController::class, 'store']);
 
-    Route::get('/car/sale/{sale}/features', [PreferencesController::class, 'index'])->name('car.sale-sale.features');
-    Route::post('/car/sale/{sale}/features', [PreferencesController::class, 'store']);
+    Route::get('/car/sale/{sale}/features', [FeaturesController::class, 'index'])->name('car.sale-sale.features');
+    Route::post('/car/sale/{sale}/features', [FeaturesController::class, 'store']);
 });

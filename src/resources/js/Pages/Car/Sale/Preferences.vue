@@ -1,8 +1,5 @@
 <template>
-    <Layout>
-        <h2 class="flex justify-center my-5 text-3xl font-extrabold text-black dark:text-white sm:text-4xl">
-            Форма Продажу
-        </h2>
+    <SaleForms>
         <div class="w-full flex justify-between my-5">
             <div class="w-1/6 text-center relative tabs-line">
                 <span
@@ -55,34 +52,49 @@
                                 <span class="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
                                    <font-awesome-icon icon="droplet"/>
                                 </span>
-                                <select v-model="form.fuel_type_id" required
-                                        v-bind:class = "$page.props.errors.fuel_type_id ? 'border-red-600' : ''"
-                                        class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                    <option :value="null" v-text="'Тип палива'"></option>
-                                    <option v-for="fuelType in fuelTypes" :value="fuelType.id" v-text="fuelType.title"></option>
-                                </select>
+                                <v-select :reduce="fuelType => fuelType.id"
+                                          :class = "{ 'border-red-600': $page.props.errors.fuel_type_id }"
+                                          class="custom-select w-full"
+                                          placeholder="Тип палива"
+                                          v-model="form.fuel_type_id" :options="fuelTypes" label="title">
+                                    <template v-slot:option="fuelType">
+                                        <div class="flex">
+                                            <div class="font-bold text-lg leading-5">{{ fuelType.title }}</div>
+                                        </div>
+                                    </template>
+                                </v-select>
                             </div>
                             <div class="w-1/3 px-1 flex ">
                                 <span class="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
                                    <font-awesome-icon icon="code-branch"/>
                                 </span>
-                                <select v-model="form.gearbox_type_id" required
-                                        v-bind:class = "$page.props.errors.gearbox_type_id ? 'border-red-600' : ''"
-                                        class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                    <option :value="null" v-text="'Тип коробки'"></option>
-                                    <option v-for="gearboxType in gearboxTypes" :value="gearboxType.id" v-text="gearboxType.title"></option>
-                                </select>
+                                <v-select :reduce="gearboxType => gearboxType.id"
+                                          :class = "{ 'border-red-600': $page.props.errors.gearbox_type_id }"
+                                          class="custom-select w-full"
+                                          placeholder="Тип коробки"
+                                          v-model="form.gearbox_type_id" :options="gearboxTypes" label="title">
+                                    <template v-slot:option="gearboxType">
+                                        <div class="flex">
+                                            <div class="font-bold text-lg leading-5">{{ gearboxType.title }}</div>
+                                        </div>
+                                    </template>
+                                </v-select>
                             </div>
                             <div class="w-1/3 px-1 flex ">
                                 <span class="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
                                    <font-awesome-icon icon="truck-pickup"/>
                                 </span>
-                                <select v-model="form.drive_type_id" required
-                                        v-bind:class = "$page.props.errors.drive_type_id ? 'border-red-600' : ''"
-                                        class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                    <option :value="null" v-text="'Тип приводу'"></option>
-                                    <option v-for="driveType in driveTypes" :value="driveType.id" v-text="driveType.title"></option>
-                                </select>
+                                <v-select :reduce="driveType => driveType.id"
+                                          :class = "{ 'border-red-600': $page.props.errors.drive_type_id }"
+                                          class="custom-select w-full"
+                                          placeholder="Тип приводу"
+                                          v-model="form.drive_type_id" :options="driveTypes" label="title">
+                                    <template v-slot:option="driveType">
+                                        <div class="flex">
+                                            <div class="font-bold text-lg leading-5">{{ driveType.title }}</div>
+                                        </div>
+                                    </template>
+                                </v-select>
                             </div>
                         </div>
                         <div class="w-full mt-4 flex">
@@ -90,23 +102,33 @@
                                 <span class="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
                                    <font-awesome-icon icon="palette"/>
                                 </span>
-                                <select v-model="form.paint_id" required
-                                        v-bind:class = "$page.props.errors.paint_id ? 'border-red-600' : ''"
-                                        class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                    <option :value="null" v-text="'Колір'"></option>
-                                    <option v-for="paint in paints" :value="paint.id" v-text="paint.title"></option>
-                                </select>
+                                <v-select :reduce="paint => paint.id"
+                                          :class = "{ 'border-red-600': $page.props.errors.paint_id }"
+                                          class="custom-select w-full"
+                                          placeholder="Колір"
+                                          v-model="form.paint_id" :options="paints" label="title">
+                                    <template v-slot:option="paint">
+                                        <div class="flex">
+                                            <div class="font-bold text-lg leading-5">{{ paint.title }}</div>
+                                        </div>
+                                    </template>
+                                </v-select>
                             </div>
                             <div class="w-2/4 px-1 flex ">
                                 <span class="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
                                    <font-awesome-icon icon="eye-dropper"/>
                                 </span>
-                                <select v-model="form.paint_type_id" required
-                                        v-bind:class = "$page.props.errors.paint_type_id ? 'border-red-600' : ''"
-                                        class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                    <option :value="null" v-text="'Тип покраски'"></option>
-                                    <option v-for="paintType in paintTypes" :value="paintType.id" v-text="paintType.title"></option>
-                                </select>
+                                <v-select :reduce="paintType => paintType.id"
+                                          :class = "{ 'border-red-600': $page.props.errors.paint_type_id }"
+                                          class="custom-select w-full"
+                                          placeholder="Тип покраски"
+                                          v-model="form.paint_type_id" :options="paintTypes" label="title">
+                                    <template v-slot:option="paintType">
+                                        <div class="flex">
+                                            <div class="font-bold text-lg leading-5">{{ paintType.title }}</div>
+                                        </div>
+                                    </template>
+                                </v-select>
                             </div>
                         </div>
                         <div class="w-full mt-4 flex">
@@ -114,35 +136,51 @@
                                 <span class="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
                                    <font-awesome-icon icon="paint-roller"/>
                                 </span>
-                                <select v-model="form.paint_condition_id" required
-                                        v-bind:class = "$page.props.errors.paint_condition_id ? 'border-red-600' : ''"
-                                        class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                    <option :value="null" v-text="'Стан покраски'"></option>
-                                    <option v-for="paintCondition in paintConditions" :value="paintCondition.id" v-text="paintCondition.title"></option>
-                                </select>
+                                <v-select :reduce="paintCondition => paintCondition.id"
+                                          :class = "{ 'border-red-600': $page.props.errors.paint_condition_id }"
+                                          class="custom-select w-full"
+                                          placeholder="Стан покраски"
+                                          v-model="form.paint_condition_id" :options="paintConditions" label="title">
+                                    <template v-slot:option="paintCondition">
+                                        <div class="flex">
+                                            <div class="font-bold text-lg leading-5">{{ paintCondition.title }}</div>
+                                        </div>
+                                    </template>
+                                </v-select>
                             </div>
                             <div class="w-2/4 px-1 flex ">
                                 <span class="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
                                    <font-awesome-icon icon="car-on"/>
                                 </span>
-                                <select v-model="form.technical_condition_id" required
-                                        v-bind:class = "$page.props.errors.technical_condition ? 'border-red-600' : ''"
-                                        class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                    <option :value="null" v-text="'Технічний стан'"></option>
-                                    <option v-for="technicalCondition in technicalConditions" :value="technicalCondition.id" v-text="technicalCondition.title"></option>
-                                </select>
+                                <v-select :reduce="technicalCondition => technicalCondition.id"
+                                          :class = "{ 'border-red-600': $page.props.errors.technical_condition_id }"
+                                          class="custom-select w-full"
+                                          placeholder="Технічний стан"
+                                          v-model="form.technical_condition_id" :options="technicalConditions" label="title">
+                                    <template v-slot:option="technicalCondition">
+                                        <div class="flex">
+                                            <div class="font-bold text-lg leading-5">{{ technicalCondition.title }}</div>
+                                        </div>
+                                    </template>
+                                </v-select>
                             </div>
                         </div>
-                        <div class="w-full mt-4 flex items-center">
+                        <div class="w-full mt-4 flex">
                             <div class="w-2/4 px-1 flex ">
                                 <span class="rounded-l-md inline-flex items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
                                    <font-awesome-icon icon="ship"/>
                                 </span>
-                                <select v-model="form.delivered_from_iso"
-                                        class="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                    <option :value="null" v-text="'Привезений із'"></option>
-                                    <option v-for="country in countries" :value="country.iso2" v-text="country.name"></option>
-                                </select>
+                                <v-select :reduce="country => country.iso2"
+                                          :class = "{ 'border-red-600': $page.props.errors.delivered_from_iso }"
+                                          class="custom-select w-full"
+                                          placeholder="Привезений із"
+                                          v-model="form.delivered_from_iso" :options="countries" label="name">
+                                    <template v-slot:option="country">
+                                        <div class="flex">
+                                            <div class="font-bold text-lg leading-5">{{ country.name }}</div>
+                                        </div>
+                                    </template>
+                                </v-select>
                             </div>
                             <div class="w-2/4 px-1 flex">
                                 <span class="rounded-l-md inline-flex items-center px-3 border-t bg-white border-l border-b border-gray-300 text-gray-500 shadow-sm text-sm">
@@ -198,7 +236,7 @@
                 </div>
             </div>
         </div>
-    </Layout>
+    </SaleForms>
 </template>
 <style>
 .tabs-line:after {
@@ -216,12 +254,21 @@ input:checked ~ label {
     outline: #9333ea solid 1px;
 }
 
+.custom-select .vs__dropdown-toggle {
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+.custom-select.vs--open .vs__dropdown-toggle {
+    border-radius: 0 0.5rem 0 0;
+}
+
 </style>
 <script>
 
-import Layout from "../../../Layouts/Layout"
+import SaleForms from "../../../Layouts/SaleForms"
 import {reactive} from "vue";
 import {Inertia} from "@inertiajs/inertia";
+import vSelect from 'vue-select';
+import 'vue-select/dist/vue-select.css';
 import Input from "../../../Jetstream/Input";
 import Button from "../../../Jetstream/Button";
 
@@ -255,7 +302,7 @@ export default {
             })
         }
     },
-    components: {Button, Input, Layout },
+    components: {Button, Input, SaleForms, vSelect },
     methods: {
         submit: function () {
             Inertia.post('/car/sale/' + this.saleId + '/preferences', this.form)

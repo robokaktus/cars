@@ -1,8 +1,5 @@
 <template>
-    <Layout>
-        <h2 class="flex justify-center my-5 text-3xl font-extrabold text-black dark:text-white sm:text-4xl">
-            Форма Продажу
-        </h2>
+    <SaleForm>
         <div class="w-full flex justify-between my-5">
             <div class="w-1/6 text-center relative tabs-line">
             <span
@@ -42,21 +39,43 @@
                     <form @submit.prevent="submit" class="w-full">
                         <div class="w-full mt-4 flex">
                             <div class="w-1/4 px-1">
-                                <select required v-model="form.brand_id"
-                                        v-bind:class = "$page.props.errors.brand_id ? 'border-red-600' : ''"
-                                        class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                    <option :value="null" v-text="'Марка'"></option>
-                                    <option v-for="brand in brands" :value="brand.id" v-text="brand.title"></option>
-                                </select>
-
+                                <v-select :reduce="brand => brand.id"
+                                          :class = "{ 'border-red-600': $page.props.errors.brand_id }"
+                                          class="custom-select"
+                                          placeholder="Марка"
+                                          v-model="form.brand_id" :options="brands" label="title">
+                                    <template v-slot:option="brand">
+                                        <div class="flex">
+                                            <div class="mr-2">
+                                                <font-awesome-icon icon="volume-low"/>
+                                            </div>
+                                            <div class="">
+                                                <div class="font-bold text-lg leading-5">{{ brand.title }}</div>
+                                                <span>Description</span>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </v-select>
                             </div>
                             <div class="w-1/4 px-1">
-                                <select required v-model="form.model_id"
-                                        v-bind:class = "$page.props.errors.model_id ? 'border-red-600' : ''"
-                                        class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                    <option :value="null" v-text="'Модель'"></option>
-                                    <option v-for="model in models" :value="model.id" v-text="model.title"></option>
-                                </select>
+                                <v-select :reduce="model => model.id"
+                                          :disabled=brandEmpty
+                                          :class = "{ 'border-red-600': $page.props.errors.model_id }"
+                                          class="custom-select"
+                                          placeholder="Модель"
+                                          v-model="form.model_id" :options="newModels" label="title">
+                                    <template v-slot:option="model">
+                                        <div class="flex">
+                                            <div class="mr-2">
+                                                <font-awesome-icon icon="volume-low"/>
+                                            </div>
+                                            <div class="">
+                                                <div class="font-bold text-lg leading-5">{{ model.title }}</div>
+                                                <span>Description</span>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </v-select>
                             </div>
                             <div class="w-2/4 px-1">
                                 <input v-model="form.version" type="text"
@@ -79,13 +98,23 @@
                         </div>
                         <div class="w-full mt-4 flex">
                             <div class="w-1/4 px-1">
-                                <select required v-model="form.body_type_id"
-                                        v-bind:class = "$page.props.errors.body_type_id ? 'border-red-600' : ''"
-                                        class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                    <option :value="null" v-text="'Тип кузову'"></option>
-                                    <option v-for="bodyType in bodyTypes" :value="bodyType.id"
-                                            v-text="bodyType.title"></option>
-                                </select>
+                                <v-select :reduce="bodyType => bodyType.id"
+                                          :class = "{ 'border-red-600': $page.props.errors.body_type_id }"
+                                          class="custom-select"
+                                          placeholder="Тип кузову"
+                                          v-model="form.body_type_id" :options="bodyTypes" label="title">
+                                    <template v-slot:option="bodyType">
+                                        <div class="flex">
+                                            <div class="mr-2">
+                                                <font-awesome-icon icon="volume-low"/>
+                                            </div>
+                                            <div class="">
+                                                <div class="font-bold text-lg leading-5">{{ bodyType.title }}</div>
+                                                <span>Description</span>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </v-select>
                             </div>
                             <div class="flex w-1/4 px-1">
                             <span
@@ -132,16 +161,22 @@
                                        placeholder="VIN-номер"/>
                             </div>
                             <div class="w-1/3 px-1">
-                                <select required v-model="form.manufactured_at" name="year"
-                                        v-bind:class = "$page.props.errors.manufactured_at ? 'border-red-600' : ''"
-                                        class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                    <option :value="null" v-text="'Рік випуску'"></option>
-                                    <option v-for="year in years" :value="year" v-text="year"></option>
-                                </select>
+                                <v-select :reduce="year => year"
+                                          :class = "{ 'border-red-600': $page.props.errors.manufactured_at }"
+                                          class="custom-select"
+                                          placeholder="Рік випуску"
+                                          v-model="form.manufactured_at" :options="years" label="year">
+                                    <template v-slot:option="year">
+                                        <div class="flex">
+                                            <div class="font-bold text-lg leading-5">{{ year.year }}</div>
+                                        </div>
+                                    </template>
+                                </v-select>
+
                             </div>
                         </div>
-                        <div class="w-full mt-4 flex items-center">
-                            <div class="w-1/3 px-1">
+                        <div class="w-full mt-4 flex">
+                            <div class="w-1/3 px-1 flex items-center">
                                 <div class="relative inline-block w-10 mr-2 align-middle select-none">
                                     <input type="checkbox" id="Purple" v-model="form.is_hide_state_number"
                                            class="checked:bg-purple-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
@@ -150,7 +185,7 @@
                                 </div>
                                 <span class="text-gray-400 font-medium">Приховати номер авто</span>
                             </div>
-                            <div class="w-1/3 px-1">
+                            <div class="w-1/3 px-1 flex items-center">
                                 <div class="relative inline-block w-10 mr-2 align-middle select-none">
                                     <input type="checkbox"  id="Purple" v-model="form.is_hide_vin_number"
                                            class="checked:bg-purple-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
@@ -160,12 +195,17 @@
                                 <span class="text-gray-400 font-medium">Приховати VIN-номер</span>
                             </div>
                             <div class="w-1/3 px-1">
-                                <select required v-model="form.city_id"
-                                        v-bind:class = "$page.props.errors.city_id ? 'border-red-600' : ''"
-                                        class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                                    <option :value="null" v-text="'Місто'"></option>
-                                    <option v-for="city in cities" :value="city.id" v-text="city.name"></option>
-                                </select>
+                                <v-select :reduce="city => city.id"
+                                          :class = "{ 'border-red-600': $page.props.errors.city_id }"
+                                          class="custom-select"
+                                          placeholder="Місто"
+                                          v-model="form.city_id" :options="cities" label="name">
+                                    <template v-slot:option="city">
+                                        <div class="flex">
+                                            <div class="font-bold text-lg leading-5">{{ city.name }}</div>
+                                        </div>
+                                    </template>
+                                </v-select>
                             </div>
                         </div>
                         <div class="w-full mt-4 flex items-center">
@@ -216,25 +256,17 @@
                 </div>
             </div>
         </div>
-    </Layout>
+    </SaleForm>
 </template>
-<style>
-.tabs-line:after {
-    content: '';
-    position: absolute;
-    width: 36px;
-    height: 1px;
-    background: black;
-    right: -21%;
-    top: 50%;
-}
-</style>
 
 <script>
 
-import Layout from "../../../Layouts/Layout"
+import SaleForm from "../../../Layouts/SaleForms"
 import {reactive} from "vue";
 import {Inertia} from "@inertiajs/inertia";
+import vSelect from 'vue-select';
+import 'vue-select/dist/vue-select.css';
+import axios from "axios";
 
 export default {
     props: {
@@ -246,6 +278,8 @@ export default {
     },
     data() {
         return {
+            brandEmpty: true,
+            newModels: this.models,
             form: reactive({
                 'brand_id': null,
                 'model_id': null,
@@ -268,10 +302,26 @@ export default {
             })
         }
     },
-    components: { Layout },
+    components: { SaleForm, vSelect },
     methods: {
         submit: function () {
             Inertia.post('/car/sale/', this.form)
+        },
+    },
+    watch: {
+        'form.brand_id' (value) {
+            if (value == null) {
+                return;
+            }
+            axios.post(`/brands/${value}/load-models`)
+                .then((response) => {
+                    if (Array.isArray(response.data)) {
+                        this.form.model_id = null;
+                        this.brandEmpty = false;
+                        this.newModels = response.data;
+                    }
+                })
+                .catch((error) => console.log(error))
         }
     },
     // updated() {

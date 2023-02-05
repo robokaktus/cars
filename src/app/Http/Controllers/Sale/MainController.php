@@ -25,7 +25,7 @@ class MainController extends Controller
 
         return Inertia::render('Car/Sale/Main', [
             'brands' => Brand::orderBy('priority')->get(['id', 'title']),
-            'models' => Model::get(['id', 'title']),
+            'models' => [],
             'bodyTypes' => BodyType::get(['id', 'title', 'icon']),
             'years' => range(now()->year, 1960),
             'cities' => $ukraine->cities
