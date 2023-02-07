@@ -12,6 +12,7 @@ use Bizhub\QueryFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nnjeim\World\Models\City;
+use Nnjeim\World\Models\State;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -93,5 +94,17 @@ class Sale extends Model implements HasMedia
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id', 'id');
+    }
+
+    public function region()
+    {
+        return $this->hasOneThrough(
+            State::class,
+            City::class,
+            'id',
+            'id',
+            'city_id',
+            'state_id'
+        );
     }
 }
