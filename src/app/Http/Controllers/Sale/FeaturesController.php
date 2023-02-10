@@ -30,7 +30,7 @@ class FeaturesController extends Controller
 
     public static function renderInertia(int $saleId): Response
     {
-        return Inertia::render('Car/Sale/Features', [
+        return Inertia::render('Car/SaleForm/Features', [
             'saleId' => $saleId
         ]);
     }

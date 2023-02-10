@@ -21,11 +21,11 @@ use Nnjeim\World\Models\City;
 use Nnjeim\World\Models\Country;
 use Nnjeim\World\Models\State;
 
-class CatalogController extends Controller
+class SalesController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Car/Catalog', [
+        return Inertia::render('Car/Sales/Main', [
             'sales' => $this->getSales(),
             'brands' => Brand::all(),
             'models' => Model::all(),

@@ -27,7 +27,7 @@ class GalleryController extends Controller
 
     public static function renderInertia(int $saleId): Response
     {
-        return Inertia::render('Car/Sale/Gallery', [
+        return Inertia::render('Car/SaleForm/Gallery', [
             'saleId' => $saleId
         ]);
     }

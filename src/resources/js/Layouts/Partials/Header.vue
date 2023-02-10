@@ -1,31 +1,116 @@
+<script setup>
+import JetApplicationMark from '@/Jetstream/ApplicationMark.vue';
+import JetBanner from '@/Jetstream/Banner.vue';
+import JetDropdown from '@/Jetstream/Dropdown.vue';
+import JetDropdownLink from '@/Jetstream/DropdownLink.vue';
+import JetNavLink from '@/Jetstream/NavLink.vue';
+import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue';
+import {ref} from "vue";
+import {Inertia} from "@inertiajs/inertia";
+defineProps({
+    title: String,
+});
+
+const showingNavigationDropdown = ref(false);
+
+const switchToTeam = (team) => {
+    Inertia.put(route('current-team.update'), {
+        team_id: team.id,
+    }, {
+        preserveState: false,
+    });
+};
+
+const logout = () => {
+    Inertia.post(route('logout'));
+};
+</script>
 <template>
     <header class="w-full shadow-lg bg-white dark:bg-gray-700 items-center h-16 rounded-2xl z-40 my-2 sticky top-1.5">
-        <div class="relative z-20 flex flex-col justify-center h-full px-3 mx-auto flex-center">
-            <div class="relative items-center pl-1 flex w-full lg:max-w-68 sm:pr-2 sm:ml-0">
-                <div class="container relative left-0 z-50 flex w-3/4 h-auto h-full">
-                    <div class="flex items-center">
-                        <div class="flex items-center md:w-auto mr-2">
-                            <img class="h-8 w-auto sm:h-10"
-                                 src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                                 alt="logo"/>
-                        </div>
-                        <h1 class="text-2xl " v-on:click="showFlash">Robocar</h1><br>
-                    </div>
+        <div class="flex justify-between h-16">
+            <div class="flex">
+                <!-- Logo -->
+                <div class="shrink-0 flex items-center">
+                    <Link :href="route('home')">
+                        <JetApplicationMark class="block h-9 w-auto"/>
+                    </Link>
                 </div>
-                <div class="relative p-1 flex items-center justify-end w-1/4 ml-5 mr-4 sm:mr-0 sm:right-auto">
-                    <div>
-                        <a href="#"
-                           class="rounded-2xl py-1 px-8 bg-gradient-to-r from-green-400 to-blue-500 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2">
-                            Action
-                        </a>
-                    </div>
-                    <div class="ml-4">
-                        <a href="#" class="block relative">
-                            <img alt="profil"
-                                 src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/02/Floch-Forster.png?q=50&fit=crop&w=1400&dpr=1.5"
-                                 class="mx-auto object-cover rounded-full h-10 w-10 ">
-                        </a>
-                    </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <JetNavLink :href="route('home')" :active="route().current('home')">
+                        Home
+                    </JetNavLink>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <JetNavLink :href="route('car.sales')" :active="route().current('car.sales')">
+                        Cars
+                    </JetNavLink>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <JetNavLink :href="route('car.sale-form')" :active="route().current('car.sale-form')">
+                        Sale Car
+                    </JetNavLink>
+                </div>
+            </div>
+            <div class="ml-3 mt-4 mr-4 relative" v-if="$page.props.user">
+                <JetDropdown align="right" width="48">
+                    <template #trigger>
+                        <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                            <img class="h-8 w-8 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
+                        </button>
+
+                        <span v-else class="inline-flex rounded-md">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                                {{ $page.props.user.name }}
+
+                                                <svg
+                                                    class="ml-2 -mr-0.5 h-4 w-4"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20"
+                                                    fill="currentColor"
+                                                >
+                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </span>
+                    </template>
+
+                    <template #content>
+                        <!-- Account Management -->
+                        <div class="block px-4 py-2 text-xs text-gray-400">
+                            Manage Account
+                        </div>
+
+                        <JetDropdownLink :href="route('profile.show')">
+                            Profile
+                        </JetDropdownLink>
+
+                        <JetDropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
+                            API Tokens
+                        </JetDropdownLink>
+
+                        <div class="border-t border-gray-100" />
+
+                        <!-- Authentication -->
+                        <form @submit.prevent="logout">
+                            <JetDropdownLink as="button">
+                                Log Out
+                            </JetDropdownLink>
+                        </form>
+                    </template>
+                </JetDropdown>
+            </div>
+            <div class="flex" v-else>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <JetNavLink :href="route('login')" :active="route().current('login')">
+                        Sign In
+                    </JetNavLink>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex mr-10">
+                    <JetNavLink :href="route('register')" :active="route().current('register')">
+                        Sign Up
+                    </JetNavLink>
                 </div>
             </div>
         </div>

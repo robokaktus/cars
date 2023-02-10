@@ -35,7 +35,7 @@ class CrashController extends Controller
 
     public static function renderInertia(int $saleId): Response
     {
-        return Inertia::render('Car/Sale/Crash', [
+        return Inertia::render('Car/SaleForm/Crash', [
             'saleId' => $saleId
         ]);
     }

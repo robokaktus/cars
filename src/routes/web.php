@@ -27,7 +27,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 
 
@@ -35,7 +35,8 @@ Route::get('/car/features', function () {
     return Inertia::render('Car/Sale/Features');
 });
 
-Route::get('/car/catalog', [\App\Http\Controllers\Car\CatalogController::class, 'index'])->name('car.catalog');
+Route::get('/car/sales', [\App\Http\Controllers\Car\SalesController::class, 'index'])->name('car.sales');
+Route::get('/car/sales/{sale}', [\App\Http\Controllers\Car\SaleController::class, 'index'])->name('car.sale');
 Route::post('/brands/{brand}/load-models', [\App\Http\Controllers\Car\BrandController::class, 'loadModels']);
 
 Route::middleware([
@@ -46,18 +47,19 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    Route::get('/car/sale', [MainController::class, 'index']);
+
+    Route::get('/car/sale', [MainController::class, 'index'])->name('car.sale-form');
     Route::post('/car/sale', [MainController::class, 'store']);
 
-    Route::get('/car/sale/{sale}/preferences', [PreferencesController::class, 'index'])->name('car.sale-sale.preferences');
+    Route::get('/car/sale/{sale}/preferences', [PreferencesController::class, 'index'])->name('car.sale-form.preferences');
     Route::post('/car/sale/{sale}/preferences', [PreferencesController::class, 'store']);
 
-    Route::get('/car/sale/{sale}/gallery', [GalleryController::class, 'index'])->name('car.sale-sale.gallery');
+    Route::get('/car/sale/{sale}/gallery', [GalleryController::class, 'index'])->name('car.sale-form.gallery');
     Route::post('/car/sale/{sale}/gallery', [GalleryController::class, 'store']);
 
-    Route::get('/car/sale/{sale}/crash', [CrashController::class, 'index'])->name('car.sale-sale.crash');
+    Route::get('/car/sale/{sale}/crash', [CrashController::class, 'index'])->name('car.sale-form.crash');
     Route::post('/car/sale/{sale}/crash', [CrashController::class, 'store']);
 
-    Route::get('/car/sale/{sale}/features', [FeaturesController::class, 'index'])->name('car.sale-sale.features');
+    Route::get('/car/sale/{sale}/features', [FeaturesController::class, 'index'])->name('car.sale-form.features');
     Route::post('/car/sale/{sale}/features', [FeaturesController::class, 'store']);
 });

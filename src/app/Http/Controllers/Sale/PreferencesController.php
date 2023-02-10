@@ -32,7 +32,7 @@ class PreferencesController extends Controller
 
     public static function renderInertia(int $saleId): Response
     {
-        return Inertia::render('Car/Sale/Preferences', [
+        return Inertia::render('Car/SaleForm/Preferences', [
             'paints' => Paint::get(['id', 'title', 'color_code']),
             'paintTypes' => Type::get(['id', 'title', 'short_title', 'description', 'icon']),
             'paintConditions' => Condition::get(['id', 'title', 'short_title', 'description', 'icon']),
