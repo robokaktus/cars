@@ -53,7 +53,7 @@ const logout = () => {
                     </JetNavLink>
                 </div>
             </div>
-            <div class="ml-3 mt-4 mr-4 relative">
+            <div class="ml-3 mt-4 mr-4 relative" v-if="$page.props.user">
                 <JetDropdown align="right" width="48">
                     <template #trigger>
                         <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
@@ -100,6 +100,18 @@ const logout = () => {
                         </form>
                     </template>
                 </JetDropdown>
+            </div>
+            <div class="flex" v-else>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <JetNavLink :href="route('login')" :active="route().current('login')">
+                        Sign In
+                    </JetNavLink>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex mr-10">
+                    <JetNavLink :href="route('register')" :active="route().current('register')">
+                        Sign Up
+                    </JetNavLink>
+                </div>
             </div>
         </div>
     </header>
