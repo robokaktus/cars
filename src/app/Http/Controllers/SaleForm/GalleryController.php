@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Sale;
+namespace App\Http\Controllers\SaleForm;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sale\StoreGalleryRequest;
@@ -15,12 +15,13 @@ class GalleryController extends Controller
         return self::renderInertia($sale->id);
     }
 
-    public function store(Sale $sale, StoreGalleryRequest $storeGalleryRequest): Response
+    public function store(Sale $sale): Response
     {
-        $sale->addMultipleMediaFromRequest(['medias'])->each(function ($fileAdder, $index) {
-            $name = 'sale-' . $index + 1 . '.' . $fileAdder->file->getClientOriginalExtension();
-            $fileAdder->usingFileName($name)->usingName($name)->toMediaCollection('car');
-        });
+        dd(request()->all());
+//        $sale->addMultipleMediaFromRequest(['medias'])->each(function ($fileAdder, $index) {
+//            $name = 'sale-' . $index + 1 . '.' . $fileAdder->file->getClientOriginalExtension();
+//            $fileAdder->usingFileName($name)->usingName($name)->toMediaCollection('car');
+//        });
 
         return CrashController::renderInertia($sale->id);
     }

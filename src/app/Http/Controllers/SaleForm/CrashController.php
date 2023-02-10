@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Sale;
+namespace App\Http\Controllers\SaleForm;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sale\StoreCrashRequest;
 use App\Http\Requests\Sale\StorePreferencesRequest;
 use App\Models\Car\DriveType;
 use App\Models\Car\FuelType;
@@ -16,21 +17,25 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Nnjeim\World\Models\Country;
 
-class FeaturesController extends Controller
+class CrashController extends Controller
 {
     public function index(Sale $sale): Response
     {
        return self::renderInertia($sale->id);
     }
 
-    public function store(Sale $sale): Response
+    public function store(Sale $sale, StoreCrashRequest $storeCrashRequest): Response
     {
-       dd(222);
+        if ($storeCrashRequest->boolean('is_crash_exist')) {
+            $sale->crash()->create($storeCrashRequest->validated());
+        }
+
+        return FeaturesController::renderInertia($sale->id);
     }
 
     public static function renderInertia(int $saleId): Response
     {
-        return Inertia::render('Car/SaleForm/Features', [
+        return Inertia::render('Car/SaleForm/Crash', [
             'saleId' => $saleId
         ]);
     }

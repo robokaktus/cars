@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Sale\CrashController;
-use App\Http\Controllers\Sale\FeaturesController;
-use App\Http\Controllers\Sale\GalleryController;
-use App\Http\Controllers\Sale\MainController;
-use App\Http\Controllers\Sale\PreferencesController;
+use App\Http\Controllers\SaleForm\CrashController;
+use App\Http\Controllers\SaleForm\FeaturesController;
+use App\Http\Controllers\SaleForm\GalleryController;
+use App\Http\Controllers\SaleForm\MainController;
+use App\Http\Controllers\SaleForm\PreferencesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
