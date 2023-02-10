@@ -235,7 +235,7 @@
                                 class="w-full sm:w-1/2 xl:w-1/4 mb-4" style="padding: 0 10px"
                         >
                             <swiper-slide>
-                                <div class="flex w-full flex-col justify-center bg-white rounded-2xl shadow-sm">
+                                <a class="flex w-full flex-col justify-center bg-white rounded-2xl shadow-sm" :href="route('car.sale', sale.id)">
                                     <img class="aspect-video w-full rounded-t-2xl object-cover object-center"
                                          src="https://scuffedentertainment.com/wp-content/uploads/2021/11/what-car-suits-you-best-quiz.jpg"/>
                                     <div class="p-4">
@@ -244,7 +244,7 @@
                                         <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
                                             {{ sale.price }}</p>
                                     </div>
-                                </div>
+                                </a>
                             </swiper-slide>
                             <swiper-slide>
                                 <a class="w-full sm:w-1/2 xl:w-1/3 mb-4" style="padding: 0 10px">

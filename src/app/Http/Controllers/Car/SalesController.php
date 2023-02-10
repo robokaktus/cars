@@ -25,7 +25,7 @@ class SalesController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Car/Catalog', [
+        return Inertia::render('Car/Sales/Main', [
             'sales' => $this->getSales(),
             'brands' => Brand::all(),
             'models' => Model::all(),

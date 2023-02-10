@@ -23,7 +23,7 @@ class MainController extends Controller
     {
         $ukraine = Country::where('iso2', 'UA')->first();
 
-        return Inertia::render('Car/Sale/Main', [
+        return Inertia::render('Car/SaleForm/Main', [
             'brands' => Brand::orderBy('priority')->get(['id', 'title']),
             'models' => [],
             'bodyTypes' => BodyType::get(['id', 'title', 'icon']),
