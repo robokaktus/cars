@@ -35,101 +35,104 @@
         </div>
     </div>
     <div class="w-full shadow-lg bg-white rounded-2xl mb-2">
-        <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 p-4">
-            <div class="group relative">
-                <div>
-                    <file-pond
-                        name="filepond-car-front"
-                        ref="pond"
-                        class-name="filepond"
-                        label-idle="Front side"
-                        allow-multiple="false"
-                        accepted-file-types="image/jpeg, image/png"
-                        v-bind:files="medis"
-                        v-on:init="handleFilePondInit"
-                    />
+        <form @submit.prevent="submit(saleId)" class="w-full" enctype="multipart/form-data">
+            <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 p-4">
+                <div class="group relative">
+                    <div>
+                        <file-pond
+                            name="frontSideImage"
+                            ref="pond"
+                            class-name="filepond"
+                            label-idle="Front side"
+                            allow-multiple="false"
+                            accepted-file-types="image/jpeg, image/png"
+                            v-bind:files="frontSideImage"
+                            v-on:init="handleFilePondInit"
+                        />
+                    </div>
+                </div>
+                <div class="group relative">
+                    <div>
+                        <file-pond
+                            name="rightSideImage"
+                            ref="pond"
+                            class-name="filepond"
+                            label-idle="Right side"
+                            allow-multiple="false"
+                            accepted-file-types="image/jpeg, image/png"
+                            v-bind:files="rightSideImage"
+                            v-on:init="handleFilePondInit"
+                        />
+                    </div>
+                </div>
+                <div class="group relative">
+                    <div>
+                        <file-pond
+                            name="rearSideImage"
+                            ref="pond"
+                            class-name="filepond"
+                            label-idle="Rear side"
+                            allow-multiple="false"
+                            accepted-file-types="image/jpeg, image/png"
+                            v-bind:files="rearSideImage"
+                            v-on:init="handleFilePondInit"
+                        />
+                    </div>
+                </div>
+                <div class="group relative">
+                    <div>
+                        <file-pond
+                            name="leftSideImage"
+                            ref="pond"
+                            class-name="filepond"
+                            label-idle="Right side"
+                            allow-multiple="false"
+                            accepted-file-types="image/jpeg, image/png"
+                            v-bind:files="leftSideImage"
+                            v-on:init="handleFilePondInit"
+                        />
+                    </div>
+                </div>
+                <div class="group relative">
+                    <div>
+                        <file-pond
+                            name="interiorImage"
+                            v-model="form.interiorImage"
+                            ref="pond"
+                            class-name="filepond"
+                            label-idle="Interior"
+                            allow-multiple="false"
+                            accepted-file-types="image/jpeg, image/png"
+                            v-bind:files="interiorImage"
+                            v-on:init="handleFilePondInit"
+                        />
+                    </div>
+                </div>
+                <div class="group relative">
+                    <div>
+                        <file-pond
+                            name="additionalImages"
+                            ref="pond"
+                            class-name="filepond"
+                            label-idle="Additional images. Max 10"
+                            allow-multiple="true"
+                            accepted-file-types="image/jpeg, image/png"
+                            v-bind:files="additionalImages"
+                            v-on:init="handleFilePondInit"
+                        />
+                    </div>
                 </div>
             </div>
-            <div class="group relative">
-                <div>
-                    <file-pond
-                        name="filepond-car-right"
-                        ref="pond"
-                        class-name="filepond"
-                        label-idle="Right side"
-                        allow-multiple="false"
-                        accepted-file-types="image/jpeg, image/png"
-                        v-bind:files="medias"
-                        v-on:init="handleFilePondInit"
-                    />
-                </div>
-            </div>
-            <div class="group relative">
-                <div>
-                    <file-pond
-                        name="filepond-car-rear"
-                        ref="pond"
-                        class-name="filepond"
-                        label-idle="Rear side"
-                        allow-multiple="false"
-                        accepted-file-types="image/jpeg, image/png"
-                        v-bind:files="medias"
-                        v-on:init="handleFilePondInit"
-                    />
-                </div>
-            </div>
-            <div class="group relative">
-                <div>
-                    <file-pond
-                        name="filepond-car-right"
-                        ref="pond"
-                        class-name="filepond"
-                        label-idle="Right side"
-                        allow-multiple="false"
-                        accepted-file-types="image/jpeg, image/png"
-                        v-bind:files="medias"
-                        v-on:init="handleFilePondInit"
-                    />
-                </div>
-            </div>
-            <div class="group relative">
-                <div>
-                    <file-pond
-                        name="filepond-car-interior"
-                        ref="pond"
-                        class-name="filepond"
-                        label-idle="Interior"
-                        allow-multiple="false"
-                        accepted-file-types="image/jpeg, image/png"
-                        v-bind:files="medias"
-                        v-on:init="handleFilePondInit"
-                    />
-                </div>
-            </div>
-            <div class="group relative">
-                <div>
-                    <file-pond
-                        name="filepond-car-additional"
-                        ref="pond"
-                        class-name="filepond"
-                        label-idle="Additional images. Max 10"
-                        allow-multiple="true"
-                        accepted-file-types="image/jpeg, image/png"
-                        v-bind:files="medias"
-                        v-on:init="handleFilePondInit"
-                    />
-                </div>
-            </div>
-        </div>
 
-        <div class="w-full mt-8 flex justify-end">
-            <div class="flex w-1/5 px-1">
-                <button type="button" @click="submit"
-                        class="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-full ">
-                    Далі
-                </button>
+            <div class="w-full mt-8 flex justify-end">
+                <div class="flex w-1/5 px-1">
+                    <button type="submit"
+                            class="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-full ">
+                        Далі
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </template>
 <style>
@@ -152,7 +155,8 @@ input:checked ~ label {
 </style>
 <script>
 
-import {Inertia} from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3'
+import {useForm} from '@inertiajs/vue3'
 // Import FilePond
 import vueFilePond from 'vue-filepond';
 
@@ -170,19 +174,43 @@ const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImage
 
 export default {
     props: {
-        saleId: Number,
-        media: null
+        saleId: Number
     },
     data: function () {
-        return {medias: []};
+        return {
+            frontSideImage: [],
+            rightSideImage: [],
+            rearSideImage: [],
+            leftSideImage: [],
+            interiorImage: [],
+            additionalImages: [],
+        };
+    },
+    setup() {
+        const form = useForm({
+            frontSideImage: null,
+            leftSideImage: null,
+            rearSideImage: null,
+            rightSideImage: null,
+            interiorImage: null,
+            additionalImages: null,
+        })
+
+        function submit(saleId) {
+            Inertia.post('/car/sale/' + saleId + '/gallery', form)
+        }
+
+        return {form, submit}
     },
     methods: {
         handleFilePondInit: function () {
             this.$refs.pond.getFiles();
         },
-        submit: function () {
-            Inertia.post('/car/sale/' + this.$props.saleId + '/gallery', this.medias)
-        }
+        // send: function () {
+        //     Inertia.post('/car/sale/' + this.saleId + '/gallery', this.$refs.pond.getFiles());
+        //     console.log(222222);
+        //     console.log(this.$refs.pond);
+        // }
     },
     components: {
         FilePond

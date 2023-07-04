@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { router } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import JetApplicationMark from '@/Jetstream/ApplicationMark.vue';
 import JetBanner from '@/Jetstream/Banner.vue';
 import JetDropdown from '@/Jetstream/Dropdown.vue';

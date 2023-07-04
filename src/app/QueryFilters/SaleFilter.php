@@ -3,7 +3,7 @@
 namespace App\QueryFilters;
 
 use Bizhub\QueryFilter\QueryFilter;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 class SaleFilter extends QueryFilter
 {
@@ -14,42 +14,58 @@ class SaleFilter extends QueryFilter
 
     public function models(array $value)
     {
-        $this->builder->whereRelation('model', 'id', 'in', $value);
+        $this->builder->whereHas('model', function (Builder $query) use ($value) {
+            $query->whereIn('models.id', $value);
+        });
     }
 
     public function regions(array $value)
     {
-        $this->builder->whereRelation('region', 'id', 'in', $value);
+        $this->builder->whereHas('region', function (Builder $query) use ($value) {
+            $query->whereIn('states.id', $value);
+        });
     }
 
     public function cities(array $value)
     {
-        $this->builder->whereRelation('city', 'id', 'in', $value);
+        $this->builder->whereHas('city', function (Builder $query) use ($value) {
+            $query->whereIn('cities.id', $value);
+        });
     }
 
     public function bodyTypes(array $value)
     {
-        $this->builder->whereRelation('bodyType', 'id', 'in', $value);
-    }
-
-    public function features(array $value)
-    {
-        $this->builder->whereRelation('features', 'id', 'in', $value);
-    }
-
-    public function crash(int $value)
-    {
-        $this->builder->when($value === 0, function (\Illuminate\Database\Eloquent\Builder $query) {
-            return $query->whereHas('crash');
-        }, function (\Illuminate\Database\Eloquent\Builder $query) {
-            return $query->whereDoesntHave('crash');
+        $this->builder->whereHas('bodyType', function (Builder $query) use ($value) {
+            $query->whereIn('body_types.id', $value);
         });
     }
+
 
     public function driveTypes(array $value)
     {
         $this->builder->whereHas('preference', function (Builder $query) use ($value) {
             return $query->whereIn('drive_type_id', $value);
+        });
+    }
+
+    public function fuelTypes(array $value)
+    {
+        $this->builder->whereHas('preference', function (Builder $query) use ($value) {
+            return $query->whereIn('fuel_type_id', $value);
+        });
+    }
+
+    public function gearboxTypes(array $value)
+    {
+        $this->builder->whereHas('preference', function (Builder $query) use ($value) {
+            return $query->whereIn('gearbox_type_id', $value);
+        });
+    }
+
+    public function features(array $value)
+    {
+        $this->builder->whereHas('features', function (Builder $query) use ($value) {
+            return $query->whereIn('features.id', $value);
         });
     }
 
@@ -74,20 +90,6 @@ class SaleFilter extends QueryFilter
         });
     }
 
-    public function fuelTypes(array $value)
-    {
-        $this->builder->whereHas('preference', function (Builder $query) use ($value) {
-            return $query->whereIn('fuel_type_id', $value);
-        });
-    }
-
-    public function gearboxTypes(array $value)
-    {
-        $this->builder->whereHas('preference', function (Builder $query) use ($value) {
-            return $query->whereIn('gearbox_type_id', $value);
-        });
-    }
-
     public function clearedThroughCustoms(int $value)
     {
         $this->builder->whereHas('preference', function (Builder $query) use ($value) {
@@ -109,23 +111,52 @@ class SaleFilter extends QueryFilter
         });
     }
 
+    public function crashed(int $value)
+    {
+        $this->builder->when($value === 0, function (Builder $query) {
+            return $query->whereHas('crash');
+        }, function (Builder $query) {
+            return $query->whereDoesntHave('crash');
+        });
+    }
+
     public function price(array $value)
     {
-        if (isset($value['min'])) {
-            $this->builder->where('price', '>=', $value['min']);
+        if (isset($value[0])) {
+            $this->builder->where('price', '>=', $value[0]);
         }
-        if (isset($value['max'])) {
-            $this->builder->where('price', '<=', $value['max']);
+        if (isset($value[1])) {
+            $this->builder->where('price', '<=', $value[1]);
         }
     }
 
-    public function manufacturedAt(array $value)
+    public function mileage(array $value)
     {
-        if (isset($value['min'])) {
-            $this->builder->whereDate('manufactured_at', '>=', $value['min']);
+        if (isset($value[0])) {
+            $this->builder->where('mileage', '>=', $value[0]);
         }
-        if (isset($value['max'])) {
-            $this->builder->whereDate('manufactured_at', '<=', $value['max']);
+        if (isset($value[1])) {
+            $this->builder->where('mileage', '<=', $value[1]);
         }
+    }
+
+    public function engineCapacity(array $value)
+    {
+        if (isset($value[0])) {
+            $this->builder->where('engine_capacity', '>=', $value[0]);
+        }
+        if (isset($value[1])) {
+            $this->builder->where('engine_capacity', '<=', $value[1]);
+        }
+    }
+
+    public function manufacturedAtBegin(int $value)
+    {
+            $this->builder->where('manufactured_at', '>=', $value);
+    }
+
+    public function manufacturedAtEnd(int $value)
+    {
+            $this->builder->where('manufactured_at', '<=', $value);
     }
 }

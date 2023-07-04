@@ -1,12 +1,10 @@
 <script setup>
 import JetApplicationMark from '@/Jetstream/ApplicationMark.vue';
-import JetBanner from '@/Jetstream/Banner.vue';
 import JetDropdown from '@/Jetstream/Dropdown.vue';
 import JetDropdownLink from '@/Jetstream/DropdownLink.vue';
 import JetNavLink from '@/Jetstream/NavLink.vue';
-import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue';
 import {ref} from "vue";
-import {Inertia} from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 defineProps({
     title: String,
 });
@@ -26,7 +24,7 @@ const logout = () => {
 };
 </script>
 <template>
-    <header class="w-full shadow-lg bg-white dark:bg-gray-700 items-center h-16 rounded-2xl z-40 my-2 sticky top-1.5">
+    <header class="w-full shadow-lg bg-white dark:bg-gray-700 items-center h-16 rounded-2xl z-40 sticky top-1.5">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
