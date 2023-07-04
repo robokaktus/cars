@@ -104,7 +104,7 @@
                         </div>
                         <div class="mt-5">
                             <Multiselect
-                                v-model="filter.model"
+                                v-model="filter.models"
                                 mode="tags"
                                 valueProp="id"
                                 trackBy="id"
@@ -339,7 +339,8 @@
                                                 {{ sale.preference.gearbox_type.title }}
                                             </p>
                                             <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
-                                                <font-awesome-icon icon="map"/> {{ sale.city.name}}
+                                                <font-awesome-icon icon="map"/>
+                                                {{ sale.city.name }}
                                             </p>
                                         </div>
 
@@ -350,24 +351,95 @@
                                 <a class="w-full sm:w-1/2 xl:w-1/3 mb-4" style="padding: 0 10px">
                                     <div class="flex w-full flex-col justify-center bg-white rounded-2xl shadow-sm">
                                         <div class="p-4">
-                                            <h1 class="text-2xl font-medium text-slate-600 pb-2">Second slide</h1>
-                                            <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
-                                                second price</p>
+                                            <h3 class="text-center text-slate-400">Fuel Economy</h3>
+                                            <div class="flex justify-between mt-2">
+                                                <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
+                                                    City: {{ sale.fuel_economy.city_fuel_economy }}
+                                                </p>
+                                                <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
+                                                    Mix: {{ sale.fuel_economy.mix_fuel_economy }}
+                                                </p>
+                                                <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
+                                                    Road: {{ sale.fuel_economy.road_fuel_economy }}
+                                                </p>
+                                            </div>
+                                            <hr class="h-px my-3 bg-gray-200 border-0 dark:bg-gray-700">
+                                            <h3 class="text-center text-slate-400">Paint</h3>
+                                            <div class="flex justify-between mt-2">
+                                                <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
+                                                    Color:
+                                                </p>
+                                                <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
+                                                    {{ sale.preference.paint.title }}
+                                                </p>
+                                            </div>
+                                            <div class="flex justify-between mt-2">
+                                                <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
+                                                    Color Type:
+                                                </p>
+                                                <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
+                                                    {{ sale.preference.paint_type.title }}
+                                                </p>
+                                            </div>
+                                            <div class="flex justify-between mt-2">
+                                                <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
+                                                    Color Condition:
+                                                </p>
+                                                <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
+                                                    {{ sale.preference.paint_condition.title }}
+                                                </p>
+                                            </div>
+                                            <div class="flex justify-between mt-2">
+                                                <span v-if="sale.is_hide_vin_number" class="inline-flex items-center justify-center p-2 mr-2 text-sm font-semibold text-gray-800 bg-blue-100 rounded-full dark:bg-blue-700 dark:text-gray-300">
+                                                  <font-awesome-icon icon="eye" class="mr-2"/>VIN showed
+                                                </span>
+                                                <span v-else class="inline-flex items-center justify-center p-2 mr-2 text-sm font-semibold text-gray-800 bg-red-100 rounded-full dark:bg-red-700 dark:text-gray-300">
+                                                  <font-awesome-icon icon="eye-slash" class="mr-2"/>VIN hide
+                                                </span>
+                                                <span v-if="sale.is_hide_state_number" class="inline-flex items-center justify-center p-2 mr-2 text-sm font-semibold text-gray-800 bg-blue-100 rounded-full dark:bg-blue-700 dark:text-gray-300">
+                                                  <font-awesome-icon icon="eye" class="mr-2"/>State number showed
+                                                </span>
+                                                <span v-else class="inline-flex items-center justify-center p-2 mr-2 text-sm font-semibold text-gray-800 bg-red-100 rounded-full dark:bg-red-700 dark:text-gray-300">
+                                                  <font-awesome-icon icon="eye-slash" class="mr-2"/>State number hide
+                                                </span>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </a>
                             </swiper-slide>
                         </swiper>
                     </div>
-                    <div class="mt-4">
-                        <Component
-                            :is="link.url ? 'Link' : 'span'"
-                            v-for="link in sales.links"
-                            :href="link.url"
-                            v-html="link.label"
-                            class="px-1"
-                            :class="link.url ? '' : 'text-gray-500'"
-                        />
+                    <div class="mt-6 mb-8 flex justify-center mr-auto">
+                        <nav aria-label="Page navigation example">
+                            <ul class="list-style-none flex">
+                                <li v-for="(link, index) in sales.links">
+                                    <a v-if="link.active"
+                                       class="mx-1 flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-tr from-blue-600 to-blue-400 p-0 text-sm text-white shadow-md shadow-blue-500/20 transition duration-150 ease-in-out"
+                                       href="#">
+                                        {{ link.label }}
+                                    </a>
+                                    <a v-else-if="index === 0"
+                                       class="mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm text-blue-gray-500 transition duration-150 ease-in-out hover:bg-light-300"
+                                       href="#"
+                                       aria-label="Previous">
+                                        <font-awesome-icon icon="angle-left"/>
+                                    </a>
+                                    <Link :href="link.url"
+                                          v-html="link.label"
+                                          v-else-if="link.url && index <= sales.last_page"
+                                          class="mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm text-blue-gray-500 transition duration-150 ease-in-out hover:bg-light-300">
+
+                                    </Link>
+                                    <a v-else
+                                       class="mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm text-blue-gray-500 transition duration-150 ease-in-out hover:bg-light-300"
+                                       :href="link.url"
+                                       aria-label="Next">
+                                        <font-awesome-icon icon="angle-right"/>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>

@@ -29,6 +29,7 @@ class SalesController extends Controller
 {
     public function index(Request $request)
     {
+//        dd($this->getSales()->toArray());
         return Inertia::render('Car/Sales/Main', [
             'filters' => $request->all(),
             'sales' => $this->getSales(),
@@ -58,6 +59,7 @@ class SalesController extends Controller
             'bodyType',
             'city',
             'user',
+            'fuelEconomy',
             'preference',
             'preference.paint',
             'preference.paintType',

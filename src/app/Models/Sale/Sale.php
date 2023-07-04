@@ -6,6 +6,7 @@ use App\Models\Car\BodyType;
 use App\Models\Car\Brand;
 use App\Models\Car\Crash;
 use App\Models\Car\Feature;
+use App\Models\Car\FuelEconomy;
 use App\Models\Car\FuelType;
 use App\Models\User;
 use Bizhub\QueryFilter\Filterable;
@@ -88,7 +89,7 @@ class Sale extends Model implements HasMedia
 
     public function fuelEconomy()
     {
-        return $this->hasOne(FuelType::class, 'sale_id', 'id');
+        return $this->hasOne(FuelEconomy::class, 'sale_id', 'id');
     }
 
     public function city()
