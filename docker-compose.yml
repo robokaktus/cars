@@ -68,7 +68,7 @@ services:
                 ipv4_address: 172.1.0.5
 
     composer:
-        image: composer:2
+        image: composer:2.2
         container_name: composer
         volumes:
             - ./src:/var/www/html
@@ -82,7 +82,7 @@ services:
                 ipv4_address: 172.1.0.6
 
     npm:
-        image: node:13.7
+        image: node:18.16
         container_name: npm
         volumes:
             - ./src:/var/www/html

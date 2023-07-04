@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignIdFor(BodyType::class, 'body_type_id');
             $table->unsignedBigInteger('price');
             $table->unsignedBigInteger('old_price')->nullable();
-            $table->year('manufactured_at');
+            $table->integer('manufactured_at');
             $table->string('version')->nullable();
             $table->string('state_number')->index();
             $table->string('vin_number')->index();

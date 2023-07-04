@@ -157,7 +157,7 @@ import Layout from "../../../Layouts/Layout"
 import {reactive} from "vue";
 import Button from "../../../Jetstream/Button";
 import Input from "../../../Jetstream/Input";
-import {Inertia} from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3'
 
 export default {
     props: {
