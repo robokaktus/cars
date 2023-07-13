@@ -108,4 +108,9 @@ class Sale extends Model implements HasMedia
             'state_id'
         );
     }
+
+    public function images()
+    {
+        return $this->media()->where('collection_name', 'sale');
+    }
 }
